@@ -1,0 +1,3 @@
+2023-06-29 15:18:17,438 [Worker-4: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2023-06-29 15:18:34,202 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2023-06-29 15:31:32,350 [Worker-15: Cloning from https://github.com/GunwooRoh/SemiProject-2.git] WARN  org.eclipse.jgit.lib.Repository - close() called when useCnt is already zero for Repository[D:\semiproject2\semiproject2\.git]
