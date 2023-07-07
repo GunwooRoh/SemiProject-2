@@ -4,15 +4,20 @@
  <style>
  
 	footer{
-	 	font-size: 14px;
+	 	font-size: 11px;
 	 	text-align: center;
 	 	color: white;
 	 	background: #5D6DBE;
-	 	margin-top: 0px;
 	 	font-style: italic;
-	 	padding: 40px;
+	 	padding: 15px;
+	 	margin-top: 400px;
 	 }
 	 
+	 a {
+	    color: #1b1c1c;
+	    font-weight: bold;
+	    text-decoration: underline;
+	}
  </style>
  
 	<!-- bottom page -->
