@@ -1,6 +1,8 @@
-package com.herbmall.member.model;
+package com.member.model;
 
 import java.sql.SQLException;
+
+
 
 /*
  jsp - dao
@@ -10,14 +12,17 @@ import java.sql.SQLException;
 //db작업 이외의 로직을 담는 클래스
 public class MemberService {
 	//아이디 중복확인 관련 상수
-	public static final int USABLE_ID=1;  //사용가능
-	public static final int UNUSABLE_ID=2;  //이미 존재하는 아이디여서 사용불가
+	public static final int USABLE_ID=1;  //사용가능한 아이디
+	public static final int UNUSABLE_ID=2;  //사용불가 아이디
 
 	//로그인 처리 관련 상수
 	public static final int LOGIN_OK=1; //로그인 성공
 	public static final int DISAGREE_PWD=2; //비밀번호 불일치
-	public static final int NONE_ID=3;  //해당 아이디가 존재하지 않는다
+	public static final int NONE_ID=3;  //아이디 없음
 
+	//관리자 로그인
+	public static final int Admin_Login=4;  //관리자로그인성공
+	
 
 	private MemberDAO memberDao;
 
@@ -25,28 +30,33 @@ public class MemberService {
 		memberDao=new MemberDAO();
 	}
 
+	
 	public int insertMember(MemberVO vo) throws SQLException {
 		int cnt=memberDao.insertMember(vo);
 		return cnt;
 	}
 
-	public int duplicateId(String userid) throws SQLException {
-		return memberDao.duplicateId(userid);
+	public int duplicateId(String id) throws SQLException {
+		return memberDao.duplicateId(id);
 	}
 
-	public int checkLogin(String userid, String pwd) throws SQLException {
-		return memberDao.checkLogin(userid, pwd);
+	public int checkLogin(String id, String pwd) throws SQLException {
+		if(id.equals("admin") && pwd.equals("admin123")) {
+			return memberDao.AdminLogin(id, pwd);
+		}else {
+			return memberDao.checkLogin(id, pwd);
+		}
 	}
-
-	public MemberVO selectMember(String userid) throws SQLException {
-		return memberDao.selectMember(userid);
+	
+	public MemberVO selectMember(String id) throws SQLException {
+		return memberDao.selectMember(id);
 	}
 
 	public int updateMember(MemberVO vo) throws SQLException {
 		return memberDao.updateMember(vo);
 	}
 	
-	public int withdrawMember(String userid) throws SQLException {
-		return memberDao.withdrawMember(userid);
+	public int withdrawMember(String id) throws SQLException {
+		return memberDao.withdrawMember(id);
 	}
 }
