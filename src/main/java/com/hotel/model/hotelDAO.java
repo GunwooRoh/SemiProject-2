@@ -118,7 +118,7 @@ public class hotelDAO {
 	}
 
 	/**
-	 * 글 상세보기 메서드
+	 * 호텔정보 상세보기 메서드
 	 * @param no
 	 * @return
 	 * @throws SQLException 
