@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
  <%@ include file="../Layout/top.jsp"%> 
 
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -10,10 +11,12 @@
 
 
 <style>
+
 	div#wrap_profile {
 	    padding: 2rem;
 	    margin: 0 auto;
 	}
+
 	div#bt {
 	    padding: inherit;
 	    display: flex;
@@ -44,10 +47,12 @@
 	svg.bi.bi-person-circle {
   	  margin: 5px;
 	}
+
 </style>
 <script type="text/javascript" src="../js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
 <script type="text/javascript">
+
 </script>
 
 <selection id="profile">
@@ -162,3 +167,4 @@
 		crossorigin="anonymous"></script>
 
 		 <%@ include file="../Layout/bottom.jsp"%> 
+
