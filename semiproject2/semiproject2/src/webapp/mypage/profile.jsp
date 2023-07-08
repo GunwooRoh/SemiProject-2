@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../top.jsp"%> 
+ <%@ include file="../Layout/top.jsp"%> 
+
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
@@ -81,7 +82,7 @@
 							여행객 정보
 							입력</button>
 					</h2>
-					
+
 					<div id="collapseOne" class="accordion-collapse collapse show"
 						aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 						<div class="accordion-body">
@@ -155,14 +156,15 @@
 	 <div id="bt" > 
 		<button type="button" class="btn btn-primary" disabled>로그아웃</button>
 	 </div>
-	
+
 	</div><!-- wrap -->
-	
+
 </selection>
 	<!-- JavaScript Bundle with Popper -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 		crossorigin="anonymous"></script>
-		
-		 <%@ include file="../bottom.jsp"%> 
+
+		 <%@ include file="../Layout/bottom.jsp"%> 
+
