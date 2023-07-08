@@ -8,9 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:useBean id="memService" class="com.semi2.member.model.MemberService" 
+<jsp:useBean id="memService" class="com.member.model.MemberService" 
 	scope="session"></jsp:useBean>
-<jsp:useBean id="memVo" class="com.semi2.member.model.MemberVO" scope="page"></jsp:useBean>
+<jsp:useBean id="memVo" class="com.member.model.MemberVO" scope="page"></jsp:useBean>
 
 <%
 	//1	

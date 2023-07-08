@@ -1,4 +1,4 @@
-package com.herbmall.member.model;
+package com.member.model;
 
 import java.sql.Timestamp;
 

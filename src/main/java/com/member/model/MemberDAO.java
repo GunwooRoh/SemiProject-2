@@ -1,4 +1,4 @@
-package com.herbmall.member.model;
+package com.member.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-import com.herbmall.db.ConnectionPoolMgr2;
+import com.db.ConnectionPoolMgr2;
+
 
 public class MemberDAO {
 	private ConnectionPoolMgr2 pool;

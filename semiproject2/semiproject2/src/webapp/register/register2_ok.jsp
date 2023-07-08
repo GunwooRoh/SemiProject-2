@@ -11,8 +11,8 @@
 <%
 	request.setCharacterEncoding("utf-8");
 %>
-<jsp:useBean id="memDao" class="com.semi2.member.model.MemberDAO" scope="session"></jsp:useBean>
-<jsp:useBean id="memVo" class="com.semi2.member.model.MemberVO" scope="page"></jsp:useBean>
+<jsp:useBean id="memDao" class="com.member.model.MemberDAO" scope="session"></jsp:useBean>
+<jsp:useBean id="memVo" class="com.member.model.MemberVO" scope="page"></jsp:useBean>
 <jsp:setProperty property="*" name="memVo"/>
 
 <%-- <jsp:setProperty property="name" name="memVo"/> --%>

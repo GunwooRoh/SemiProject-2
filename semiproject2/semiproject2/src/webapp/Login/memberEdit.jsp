@@ -1,4 +1,4 @@
-<%@page import="com.semi2.member.model.MemberVO"%>
+<%@page import="com.member.model.MemberVO"%>
 <%@page import="java.sql.SQLException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -42,7 +42,7 @@
 		width:350px;
 	}	
 </style>
-<jsp:useBean id="memService" class="com.semi2.member.model.MemberService" scope="session"></jsp:useBean>
+<jsp:useBean id="memService" class="com.member.model.MemberService" scope="session"></jsp:useBean>
 <%
 	//1
 	String userid = (String)session.getAttribute("userid");

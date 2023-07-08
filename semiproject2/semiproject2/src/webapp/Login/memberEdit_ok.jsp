@@ -1,6 +1,6 @@
-<%@page import="com.semi2.member.model.MemberService"%>
+<%@page import="com.member.model.MemberService"%>
 <%@page import="java.sql.SQLException"%>
-<%@page import="com.semi2.member.model.MemberVO"%>
+<%@page import="com.member.model.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -13,7 +13,7 @@
 <title>memberEdit_ok.jsp</title>
 </head>
 <body>
-<jsp:useBean id="memService" class="com.semi2.member.model.MemberService" 
+<jsp:useBean id="memService" class="com.member.model.MemberService" 
 scope="session"></jsp:useBean>
 <%
    request.setCharacterEncoding("utf-8");
