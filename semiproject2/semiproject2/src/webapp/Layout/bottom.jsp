@@ -1,20 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
  <style>
  
 	footer{
 	 	font-size: 14px;
+	 	font-size: 11px;
 	 	text-align: center;
 	 	color: white;
 	 	background: #5D6DBE;
 	 	margin-top: 0px;
 	 	font-style: italic;
 	 	padding: 40px;
+	 	padding: 15px;
+	 	margin-top: 400px;
 	 }
 	 
+	 a {
+	    color: #1b1c1c;
+	    font-weight: bold;
+	    text-decoration: underline;
+	}
  </style>
- 
+
 	<!-- bottom page -->
 	<footer id="footer">
 			<div id="wrap2">
