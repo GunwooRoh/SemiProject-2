@@ -85,6 +85,12 @@ setInterval(nextSlide, 3000);
         <p>주소: <%= hotelVO.getAddress() %></p>
         <p>등급: <%= hotelVO.getHotelGrade() %></p>
         <p>상세정보: <%= hotelVO.getHotelDetail() %></p>
+        
+        
+        
+        
+        
+        
         <p>주소: <%= hotelVO.getAddress() %></p>
         
     </div>
