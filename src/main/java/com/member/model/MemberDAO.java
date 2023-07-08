@@ -41,7 +41,7 @@ public class MemberDAO {
 			//4
 			int result=0;
 			rs=ps.executeQuery();
-			if(rs.next()) {
+			/*if(rs.next()) {
 				String dbPwd=rs.getString(1);
 				if(dbPwd.equals(pwd)) {
 					result=MemberService.LOGIN_OK;  //로그인 성공
@@ -50,7 +50,7 @@ public class MemberDAO {
 				}
 			}else {
 				result=MemberService.NONE_ID;//해당 아이디가 없다
-			}
+			}*/
 			System.out.println("로그인 처리 결과, result="+result+", "
 					+ "매개변수 userid=" + id+", pwd="+pwd);
 
@@ -86,9 +86,9 @@ public class MemberDAO {
 			if(rs.next()) {
 				String dbPwd=rs.getString(1);
 				if(dbPwd.equals(pwd)) {
-					result=MemberService.LOGIN_OK;  //로그인 성공
+					//result=MemberService.LOGIN_OK;  //로그인 성공
 				}else {
-					result=MemberService.DISAGREE_PWD;//비밀번호 불일치					
+					//result=MemberService.DISAGREE_PWD;//비밀번호 불일치					
 				}
 				System.out.println("로그인 처리 결과, result="+result+", 매개변수 adminid=" + id+", adminpwd="+pwd);
 			}
@@ -161,9 +161,9 @@ public class MemberDAO {
 			if(rs.next()) {
 				int count=rs.getInt(1);
 				if(count>0) {  //이미 존재-> 사용불가
-					result=MemberService.UNUSABLE_ID;
+					//result=MemberService.UNUSABLE_ID;
 				}else { //해당 아이디는 없다 - 사용가능
-					result=MemberService.USABLE_ID;					
+					//result=MemberService.USABLE_ID;					
 				}
 			}
 			System.out.println("아이디 중복확인 결과, result="+result
@@ -204,7 +204,7 @@ public class MemberDAO {
 				vo.setName(name);
 				vo.setPwd(pwd);
 				vo.setEmail(email);
-				vo.set(tel); 
+				//vo.setTel(tel); 
 				vo.setPoint(point);
 			}
 			System.out.println("회원정보 검색결과: " + vo + ", 매개변수 userid: " + userid);
@@ -230,7 +230,7 @@ public class MemberDAO {
 			ps.setString(1, vo.getName());
 			ps.setString(2, vo.getPwd());
 			ps.setString(3, vo.getAge());
-			ps.setInt(4, vo.getTel());
+			//ps.setInt(4, vo.getTel());
 			ps.setString(5, vo.getEmail());
 
 			int cnt=ps.executeUpdate();

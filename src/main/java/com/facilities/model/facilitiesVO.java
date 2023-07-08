@@ -14,6 +14,7 @@ public class facilitiesVO {
 	public facilitiesVO(int hotelNo, int conv_store, int laundry_room, int accompany_pet, int parking,
 			int valet_parking, int breakfast, int pool, int lounge_bar) {
 		super();
+		
 		this.hotelNo = hotelNo;
 		this.conv_store = conv_store;
 		this.laundry_room = laundry_room;

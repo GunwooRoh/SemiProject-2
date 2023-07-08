@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.db.ConnectionPoolMgr2;
-import com.hotel.model.hotelVO;
 
 public class facilitiesDAO {
 	private ConnectionPoolMgr2 pool;
@@ -16,7 +15,7 @@ public class facilitiesDAO {
 	}
 	
 	/**
-	 * 부대시설 상세보기 메서드
+	 * 부대시설 보기 메서드
 	 * @param no
 	 * @return
 	 * @throws SQLException 
