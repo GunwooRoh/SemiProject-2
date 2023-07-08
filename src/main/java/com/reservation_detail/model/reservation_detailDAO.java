@@ -52,7 +52,7 @@ public class reservation_detailDAO {
 	}
 
 	/**
-	 * 예약 정보 전체 보기 메서드
+	 * 예약 상세 정보 전체 보기 메서드
 	 * @return
 	 * @throws SQLException 
 	 */
