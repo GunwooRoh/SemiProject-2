@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="../Layout/top2.jsp" %>
+<%@include file="/Layout/top2.jsp" %>
 
 <link rel="stylesheet" href="../css/hotel.css">
 <script type="text/javascript" src="../js/jquery-3.7.0.min.js"></script>
@@ -331,4 +331,4 @@
   
 </div>
 </main>
-<%@include file="../Layout/bottom2.jsp" %>
+<%@include file="/Layout/bottom2.jsp" %>
