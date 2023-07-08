@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.db.ConnectionPoolMgr2;
@@ -28,14 +29,14 @@ public class NoticeDAO {
 		
 		//1,2 
 		con = pool.getConnection();
-		
+		System.out.println("con 연결 성공");
 		try {
 			//3
-			String sql = "INSERT INTO ANNOUNCEMENT(ANNNO, ADMINNO, ANNTITLE, ANNCONTENT, FILENAME, ORIGINFILENAME, FILESIZE)"
-					+ " VALUES(ANNO_SEQ.NEXTVAL, 1, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO ANNOUNCEMENT(ANNNO, ANNTITLE, ANNCONTENT, ADMINNO, FILENAME, ORIGINFILENAME, FILESIZE)\r\n"
+					+ "VALUES(ANNO_SEQ.NEXTVAL, ?, ?, 1, ?, ?, ?)";
 			ps = con.prepareStatement(sql);
-			ps.setString(1,  vo.getTitle());
-			ps.setString(2,  vo.getContent());
+			ps.setString(1,  vo.getAnnTitle());
+			ps.setString(2,  vo.getAnnContent());
 			ps.setString(3,  vo.getFileName());
 			ps.setString(4,  vo.getOriginFileName());
 			ps.setLong(5,  vo.getFileSize());
@@ -62,29 +63,29 @@ public class NoticeDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		List<NoticeVO> list = null;
+		List<NoticeVO> list = new ArrayList<>();
 		
 		//1,2
 		con = pool.getConnection();
 		
 		try {
 			//3
-			String sql = "SELECT * FROM ANNOUNCEMENT ORDER BY NO DESC";
+			String sql = "SELECT * FROM ANNOUNCEMENT ORDER BY ANNNO DESC";
 			ps = con.prepareStatement(sql);
 			
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				int no = rs.getInt("no");
-				String title = rs.getString("title");
-				String content = rs.getString("content");
+				int annNo = rs.getInt("annNo");
+				String annTitle = rs.getString("annTitle");
+				String annContent = rs.getString("annContent");
 				Timestamp regdate = rs.getTimestamp("regdate");
 				int adminNo = rs.getInt("adminNo");
 				String fileName = rs.getString("fileName");
 				String originFileName = rs.getString("originFileName");
 				long fileSize = rs.getLong("fileSize");
-				int viewCount = rs.getInt("viewCount");
+				int readCount= rs.getInt("readCount");
 				
-				NoticeVO vo = new NoticeVO(no, title, content, regdate, adminNo, fileName, originFileName, fileSize, viewCount);
+				NoticeVO vo = new NoticeVO(annNo, annTitle, annContent, regdate, adminNo, fileName, originFileName, fileSize, readCount);
 				
 				list.add(vo);
 				System.out.println("조회 완료, list.size = " + list.size());
@@ -120,8 +121,8 @@ public class NoticeDAO {
 			rs = ps.executeQuery();
 			NoticeVO vo = null;
 			if(rs.next()) {
-				String title = rs.getString("anntitle");
-				String content = rs.getString("anncontent");
+				String annTitle = rs.getString("anntitle");
+				String annContent = rs.getString("anncontent");
 				Timestamp regdate = rs.getTimestamp("regdate");
 				int adminno = rs.getInt("adminno");
 				String fileName = rs.getString("fileName");
@@ -129,14 +130,14 @@ public class NoticeDAO {
 				long fileSize = rs.getLong("fileSize");
 				int readCount = rs.getInt("readCount");
 				
-				vo.setTitle(title);
-				vo.setContent(content);
+				vo.setAnnTitle(annTitle);
+				vo.setAnnContent(annContent);
 				vo.setRegdate(regdate);
 				vo.setAdminNo(adminno);
 				vo.setFileName(fileName);
 				vo.setOriginFileName(originfileName);
 				vo.setFileSize(fileSize);
-				vo.setViewCount(readCount);
+				vo.setReadCount(readCount);
 				
 				System.out.println("조회완료, vo = " + vo + ", 조회번호 no = " + no);
 			}
@@ -167,12 +168,12 @@ public class NoticeDAO {
 					+ " ORIGINFILENAME = ?, FILESIZE = ?"
 					+ " WHERE ANNNO = ?";
 			ps = con.prepareStatement(sql);
-			ps.setString(1,  vo.getTitle());
-			ps.setString(2,  vo.getContent());
+			ps.setString(1,  vo.getAnnTitle());
+			ps.setString(2,  vo.getAnnContent());
 			ps.setString(3, vo.getFileName());
 			ps.setString(4, vo.getOriginFileName());
 			ps.setLong(5, vo.getFileSize());
-			ps.setInt(6,  vo.getNo());
+			ps.setInt(6,  vo.getAnnNo());
 			
 			int cnt = ps.executeUpdate();
 			System.out.println("수정 완료, cnt = " + cnt + ", 매개변수 vo = " + vo);
