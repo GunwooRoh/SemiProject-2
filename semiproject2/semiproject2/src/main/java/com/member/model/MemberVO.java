@@ -1,56 +1,55 @@
-package com.semi2.member.model;
+package com.member.model;
 
 import java.sql.Timestamp;
 
 public class MemberVO {
-	private int no;
-	private String userid;
+	private int accno;
+	private String id;
 	private String name;
 	private String pwd;
+	private String age;
 	private String email;
-	private String hp;
-	private String zipcode;
-	private String address;
-	private String addressDetail;
+	private String tel;
+	private int point;
 	private Timestamp regdate;
-    private int mileage;
-    private Timestamp outdate;
-    
+	private Timestamp outdate;
+	
 	public MemberVO() {
 		super();
 	}
 
-	public MemberVO(int no, String userid, String name, String pwd, String email, String hp, String zipcode,
-			String address, String addressDetail, Timestamp regdate, int mileage, Timestamp outdate) {
+	
+	public MemberVO(int accno, String id, String name, String pwd, String age, String email, String tel, int point,
+			Timestamp regdate, Timestamp outdate) {
 		super();
-		this.no = no;
-		this.userid = userid;
+		this.accno = accno;
+		this.id = id;
 		this.name = name;
 		this.pwd = pwd;
+		this.age = age;
 		this.email = email;
-		this.hp = hp;
-		this.zipcode = zipcode;
-		this.address = address;
-		this.addressDetail = addressDetail;
+		this.tel = tel;
+		this.point = point;
 		this.regdate = regdate;
-		this.mileage = mileage;
 		this.outdate = outdate;
 	}
 
-	public int getNo() {
-		return no;
+
+
+	public int getAccno() {
+		return accno;
 	}
 
-	public void setNo(int no) {
-		this.no = no;
+	public void setAccno(int accno) {
+		this.accno = accno;
 	}
 
-	public String getUserid() {
-		return userid;
+	public String getId() {
+		return id;
 	}
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -69,6 +68,14 @@ public class MemberVO {
 		this.pwd = pwd;
 	}
 
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -77,36 +84,20 @@ public class MemberVO {
 		this.email = email;
 	}
 
-	public String getHp() {
-		return hp;
+	public String getTel() {
+		return tel;
 	}
 
-	public void setHp(String hp) {
-		this.hp = hp;
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 
-	public String getZipcode() {
-		return zipcode;
+	public int getPoint() {
+		return point;
 	}
 
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getAddressDetail() {
-		return addressDetail;
-	}
-
-	public void setAddressDetail(String addressDetail) {
-		this.addressDetail = addressDetail;
+	public void setPoint(int point) {
+		this.point = point;
 	}
 
 	public Timestamp getRegdate() {
@@ -115,14 +106,6 @@ public class MemberVO {
 
 	public void setRegdate(Timestamp regdate) {
 		this.regdate = regdate;
-	}
-
-	public int getMileage() {
-		return mileage;
-	}
-
-	public void setMileage(int mileage) {
-		this.mileage = mileage;
 	}
 
 	public Timestamp getOutdate() {
@@ -135,10 +118,11 @@ public class MemberVO {
 
 	@Override
 	public String toString() {
-		return "MemberVO [no=" + no + ", userid=" + userid + ", name=" + name + ", pwd=" + pwd + ", email=" + email
-				+ ", hp=" + hp + ", zipcode=" + zipcode + ", address=" + address + ", addressDetail=" + addressDetail
-				+ ", regdate=" + regdate + ", mileage=" + mileage + ", outdate=" + outdate + "]";
+		return "MemberVO [accno=" + accno + ", id=" + id + ", name=" + name + ", pwd=" + pwd + ", age=" + age
+				+ ", email=" + email + ", tel=" + tel + ", point=" + point + ", regdate=" + regdate + ", outdate="
+				+ outdate + "]";
 	}
-    
-    
+
+	
+
 }

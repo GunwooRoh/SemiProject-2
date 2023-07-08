@@ -10,8 +10,8 @@
 		
 <title>let's go EZEN</title>
 
-<script type="text/javascript" src="../js/jquery-3.7.0.min.js"></script>
-<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/jquery-3.7.0.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
 <script type="text/javascript"></script>
 
 	<style>
@@ -19,15 +19,13 @@
 		margin: 0 auto;
 		padding: 0;
 		align-content: center;
-		background-color: #4c599d;
 	}
 	
 	div#wrap_top {
     padding: 2rem;
-    /* height: 145px; */
-        background-color: white;
+    background-color: #5D6DBE;
+    height: 145px;
  }
- 
 	
 	input.bt1_top {
 		background: white;
@@ -41,9 +39,8 @@
 		font-weight: 700;
 		text-align: center;
 		box-shadow: inset 0 0 0 1px #5D6DBE;
-		float: right;
-		margin-top: 20px;
-	    margin-right: 10px;
+		float: left;
+		margin-top: px;
 	}
 	
 	input.bt2_top {
@@ -59,17 +56,15 @@
 		text-align: center;
 		box-shadow: inset 0 0 0 1px #5D6DBE;
 		float: right;
-		margin-top: 20px;
 	}
 	
 	.topbt_top {
 		margin-top: 65px;
-		    float: right;
 	}
 	
 	.logoimg_top {
 	    vertical-align: middle;
-	    height: 70px;
+	    height: 30px;
 	    margin-bottom: 10px;
 	    margin-left: 30px;
 	    margin-top: 10px;
@@ -78,14 +73,18 @@
 
 
 <body>
-<header>
 	<!-- Top page -->	
 		<div id="topImg" class="top_Img">
-			 <a href="https://www.skyscanner.co.kr/"><img alt="로고 이미지" src="../images/logoWhite.png" class="logoimg_top" /></a>
-				<a href="https://www.skyscanner.co.kr/hotels"><input type="button" value="🏛️EZEN MAIN" class="bt1_top"/></a> 
-			 	<a href="https://www.skyscanner.co.kr/profile"><input type="button" value="Login" class="bt2_top"></a>
+			<img alt="로고 이미지" src="../images/logo.png" class="logoimg_top"/>
 		</div>
 		
+<header>
+	<div id="wrap_top" class="wrap_top">
+		<div class="topbt_top">
+					<br> <input type="button" value="🏛️EZEN MAIN" class="bt1_top" href="https://www.naver.com"> 
+						 <input type="button" value="Login" class="bt2_top">
+		</div>
+	</div>
 </header>
 
 
