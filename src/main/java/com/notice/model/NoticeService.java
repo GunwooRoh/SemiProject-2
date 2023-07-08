@@ -1,4 +1,4 @@
-package com.semiJY.notice.model;
+package com.notice.model;
 
 import java.sql.SQLException;
 import java.util.List;
