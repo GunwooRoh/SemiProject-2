@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../form/top.jsp"%>
-
+<!-- <link rel="stylesheet" type="text/css" href="/css/noticeWriteCss.css" />  -->
 <title>공지사항 등록</title>
-<style type="text/css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous">
+<style type = "text/css">
 * {
 	margin: 0;
 	padding: 0;
@@ -31,12 +36,6 @@ strong {
 	text-align: center;
 }
 </style>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
-</head>
 <body>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
@@ -44,7 +43,7 @@ strong {
 		crossorigin="anonymous"></script>
 	<script type="text/javascript" src = "../tool/naver-smarteditor2-ca95d21/demo/js/service/HuskyEZCreator.js" charset = "utf-8"></script>
 	<div class="box">
-		<form name="frm" method="post" action="noticeWrite_ok.jsp">
+		<form name="frm" method="post" action="noticeWrite_ok.jsp" enctype = "multipart/form-data">
 			<strong>공지사항</strong> <select class="form-select"
 				aria-label="Default select example">
 				<option selected>말머리 선택</option>
@@ -54,20 +53,28 @@ strong {
 			</select>
 			<div class="mb-3">
 				<label for="exampleFormControlInput1" class="form-label">제목</label>
+				<!-- 관리자번호 FK이므로 hidden 필드에 넣어서 보내주기 -->
+				<input type = "text" class = "form-control" id = "exampleFormControlInput1" name = "adminNo" value = "">
 				<input type="text" class="form-control"
-					id="exampleFormControlInput1" placeholder="제목을 입력해주세요.">
+					id="exampleFormControlInput1" name = "title" placeholder="제목을 입력해주세요.">
 			</div>
+			
 			<div class="mb-3">
 				<label for="exampleFormControlTextarea1" class="form-label">내용</label>
-				<textarea class="form-control" id="exampleFormControlTextarea1" name = "textTest"
+				<textarea class="form-control" id="exampleFormControlTextarea1" name = "content"
 					rows="30" placeholder="내용을 입력해주세요."></textarea>
 			</div>
 			<div class="mb-4">
-				<button type="submit" id="btn1" onclick="submitContents()">전송</button> 
-				<button type="reset"  id="btn2" >취소</button>
+				<label for="exampleFormControlTextarea1" class="form-label">첨부파일 :</label>
+				<input type = "file" id = "upfile" name = "upfile"/>
+			</div>
+			<div class="mb-3">
+				<input type="submit" id="btn1" onclick="submitContents()" value = "등록">
+				<input type="reset"  id="btn2" >
 			</div>
 		</form>
 	</div>
+</body>
 <%@ include file = "../form/bottom.jsp" %>
 <script type = "text/javascript">
 	var oEditors = [];
