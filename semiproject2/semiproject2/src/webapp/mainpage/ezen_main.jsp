@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -33,7 +35,7 @@
 <body>
   <!-- 로고 -->
   <div class="introLogo">
-    <p>이젠,갈래?</p>
+    <p style = "color:#4857A5"><strong>이젠, 갈래?</strong></p>
   </div>
 
   <!--  <div class="topBtn">   -->
@@ -49,10 +51,13 @@
   <!-- header -->
   <!-- 메뉴 -->
   <!-- 메뉴 -->
-  <div class="header container clearfix">
+  <!--<div class="header container clearfix">
+	-->
     <header>
+    	<
       <h1>
-        <a href="./index.html"><img src="./img/logo.png" alt="야놀자_로고" /></a>
+      
+        <a href="./index.html"><img src="./img/logo.svg" alt="야놀자_로고" /></a>
       </h1>
       <ul id="gnb">
         <li><a href="./About/ya_About.html">About</a></li>
@@ -93,6 +98,104 @@
     </header>
   </div>
 
+  <!-- <div class="btn-scroll-holder"></div> -->
+
+  <div id="bgContainer">
+    <!-- bgContainer : 모든 콘텐츠 담은 컨테이너 -->
+    <div id="bgBox">
+      <!-- bgBox : background 이미지만 적용된 div. -->
+    </div>
+    <div class="bgMask">
+      <!-- bgMask : 원에서 커지는 마스크 용도. 필수 -->
+      <div class="clipImg"></div>
+      <!-- clipImg : 마스크 내부 background로 이미지 적용 -->
+      <!-- fullScreen -->
+      <section class="fullScreen">
+        <video loop autoplay muted src="./img/index.mp4"></video>
+        <div class="fullScreenText">
+          <div class="emtpy"></div>
+          <div class="txt">
+            <p><span class="del">누구나</span></p>
+            <p><span class="del1">마음 편히</span></p>
+            <p><span class="del2">쉴 수 있게</span></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- fullScreen -->
+    <section class="fullScreen">
+      <video loop autoplay muted src="./img/index.mp4"></video>
+      <div class="fullScreenText">
+        <div class="emtpy"></div>
+        <div class="txt">
+          <p><span class="del">누구나</span></p>
+          <p><span class="del1">마음 편히</span></p>
+          <p><span class="del2">놀 수 있게</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------ sec1 ------ -->
+    <section class="sec1">
+      <div class="container">
+        <div class="sec1Txt txtBox">
+          <em>Platform business</em>
+          <h1 class="title">
+            <p><span class="del">당신의</span></p>
+            <p><span class="del1">모든 여행</span></p>
+          </h1>
+          <div class="sTxtWrapper">
+            <p class="sTxt">
+              이젠, 갈래?<em>만 있으면<br>
+                누구나 언제 어디서든<br>
+                여행을 즐길 수 있습니다.</em>
+            </p>
+          </div>
+          <div class="hovBox">
+            <span>
+              <img src="./img/ind_arrow-whLong.svg" alt="흰긴화살표">
+            </span>
+            <a href="./whatWeDo.html">Platform business</a>
+            <img src="./img/ind_arrow-long.svg" alt="긴화살표" class="gone">
+          </div>
+        </div>
+        <!-- /sec1_txt -->
+
+        <div class="logoVidoeWrapper">
+          <video loop autoplay muted src="./img/index_platform.mp4"></video>
+          <div class="whLogo">
+            <img src="./img/index_logo_ya_white.svg" alt="white_logo">
+          </div>
+        </div>
+      </div> <!-- /container -->
+    </section>
+    <!-- ------ sec2 ------ -->
+    <section class="sec2">
+      <div class="container">
+        <div class="sec2Txt txtBox">
+          <em>Hospitality solution</em>
+          <h1 class="title">
+            <p><span class="del">편리하게 즐기는</span></p>
+            <p><span class="del1">여행 기술</span></p>
+          </h1>
+          <div class="sTxtWrapper">
+            <p class="sTxt">
+              <em>클라우드 기반 호텔 자동화 솔루션</em><br>
+              Y FLUX<em>를 통해 체크인부터 체크아웃까지<br>
+                마음 편히 즐길 수 있는 똑똑한 여행 기술을 고민합니다.</em>
+            </p>
+          </div>
+          <div class="hovBox">
+            <span>
+              <img src="./img/ind_arrow-whLong.svg" alt="긴화살표">
+            </span>
+            <a href="./whatWeDo.html">Hospitality solution</a>
+            <img src="./img/ind_arrow-whLong.svg" alt="긴화살표" class="gone">
+          </div>
+        </div> <!-- sec2_txt -->
+      </div> <!-- container -->
+    </section>
     <!-- ------ sec3 ------ -->
     <section class="sec3">
       <div class="abs">
@@ -134,40 +237,8 @@
     </section>
     <!-- ------ sec4 ------ -->
     <section class="sec4">
-      <div class="container">
-        <div class="left">
-          <div class="sec4Txt">
-            <h1 class="title">Careers</h1>
-            <p>야놀자만의 기업문화와 채용정보를 확인해보세요.</p>
-          </div> <!-- sec4_txt -->
-          <div class="hovBox">
-            <span>
-              <img src="./img/ind_arrow_whShort.svg" alt="대각선흰화살표" class="diagonal aWhite">
-            </span>
-            <a href="#">Partnership</a>
-            <img src="./img/ind_arrow_short.svg" alt="대각선화살표" class="diagonal">
-          </div>
-          <div class="imgBox">
-            <img src="./img/index_sec4_1.jpg" alt="sec4_1">
-          </div>
-        </div> <!-- left -->
-        <div class="right">
-          <div class="sec4Txt">
-            <h1 class="title">Partnership</h1>
-            <p>야놀자와 함께 성장할 기업을 모십니다.</p>
-          </div> <!-- sec4_txt -->
-          <div class="hovBox">
-            <span>
-              <img src="./img/ind_arrow-whLong.svg" alt="흰긴화살표" class="aWhite">
-            </span>
-            <a href="#">Partnership</a>
-            <img src="./img/ind_arrow-long.svg" alt="긴화살표" class="bOut">
-          </div>
-          <div class="imgBox">
-            <img src="./img/index_sec4_2.jpg" alt="sec4_2">
-          </div>
-        </div> <!-- right -->
-      </div>
+  
     </section>
 
- <%@ include file="../inc/layout/bottom3.jsp"%>  
+<%@ include file = "../form/bottom.jsp" %>
+</html> 
