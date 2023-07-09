@@ -35,8 +35,8 @@ public class hotelDAO {
 					+ " values(hotel_seq.nextval, ?,?,?,?,?,?,?,?)";
 			ps=con.prepareStatement(sql);
 			ps.setString(1, vo.getHotelName());
-			ps.setInt(2, vo.getLongitude());
-			ps.setInt(3, vo.getLatitude());
+			ps.setDouble(2, vo.getLongitude());
+			ps.setDouble(3, vo.getLatitude());
 			ps.setString(4, vo.getAddress());
 			ps.setInt(5, vo.getHotelGrade());
 			ps.setString(6, vo.getHotelDetail());
@@ -188,8 +188,8 @@ public class hotelDAO {
 			ps = con.prepareStatement(sql);
 
 			ps.setString(1, vo.getHotelName());
-			ps.setInt(2, vo.getLongitude());
-			ps.setInt(3, vo.getLatitude());
+			ps.setDouble(2, vo.getLongitude());
+			ps.setDouble(3, vo.getLatitude());
 			ps.setString(4, vo.getAddress());
 			ps.setInt(5, vo.getHotelGrade());
 			ps.setString(6, vo.getHotelDetail());

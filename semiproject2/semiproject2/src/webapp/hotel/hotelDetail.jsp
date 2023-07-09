@@ -1,8 +1,7 @@
 <%@page import="oracle.net.aso.f"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="/Layout/top.jsp" %>
-<link rel="stylesheet" href="../css/hotel.css">
+<%@include file="../form/top.jsp" %>
 <script type="text/javascript" src="../js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript"></script>
 <script src="../js/script.js">
@@ -68,8 +67,9 @@ setInterval(nextSlide, 3000);
 <%
     int hotelNo = hotelVO.getHotelNo();
     hotelVO = hotelService.selectByhotelNo(hotelNo);
-    
     facilitiesVO = facilitiesService.selectByhotelNo(hotelNo);
+    double latitude = hotelVO.getLatitude();
+    double longitude = hotelVO.getLongitude();
 %>
 
 <div class="hotel_detail">
@@ -93,6 +93,23 @@ setInterval(nextSlide, 3000);
         <p>상세정보: <%= hotelVO.getHotelDetail() %></p>
 
 		<h2>부대시설</h2>
+
+		<div id="map" style="width: 500px; height: 400px;"></div>
+		<script type="text/javascript"
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77b09882911ce4058ee98aa8532ed409"></script>
+		<script>
+		var container = document.getElementById('map');
+		var hotelLongitude = <%= hotelVO.longitude %>;
+		var hotelLatitude = <%= hotelVO.latitude %>;
+		
+		var options = {
+			center: new kakao.maps.LatLng(latitude, longitude),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+		</script>
+
 		<p>
 			편의점:
 			<%=(facilitiesVO.getConv_store() == 1) ? "yes" : "no"%></p>
@@ -118,11 +135,10 @@ setInterval(nextSlide, 3000);
 			라운지 바:
 			<%=(facilitiesVO.getLounge_bar() == 1) ? "yes" : "no" %></p>
 
-
 		<p>주소: <%= hotelVO.getAddress() %></p>
         
     </div>
 </div>
 
 
-<%@include file="/Layout/bottom.jsp" %>
+<%@include file="../form/bottom.jsp" %>
