@@ -58,7 +58,7 @@ public class NoticeDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<NoticeVO> selectAll() throws SQLException{
+	public List<NoticeVO> selectAll(String keyword) throws SQLException{
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -70,8 +70,17 @@ public class NoticeDAO {
 		
 		try {
 			//3
-			String sql = "SELECT * FROM ANNOUNCEMENT ORDER BY ANNNO DESC";
+			String sql = "SELECT * FROM ANNOUNCEMENT";
+			
+			if(keyword!=null && !keyword.isEmpty()) {
+				sql += " WHERE ANNTITLE LIKE '%' || ? || '%'";
+			}
+			sql += " ORDER BY ANNNO DESC";
 			ps = con.prepareStatement(sql);
+			
+			if(keyword!=null && !keyword.isEmpty()) {
+				ps.setString(1,  keyword);
+			}
 			
 			rs = ps.executeQuery();
 			while(rs.next()) {
@@ -88,7 +97,7 @@ public class NoticeDAO {
 				NoticeVO vo = new NoticeVO(annNo, annTitle, annContent, regdate, adminNo, fileName, originFileName, fileSize, readCount);
 				
 				list.add(vo);
-				System.out.println("조회 완료, list.size = " + list.size());
+				System.out.println("조회 완료, list.size = " + list.size() + "매개변수 keyword = " + keyword);
 			}
 			return list;
 			
@@ -103,7 +112,7 @@ public class NoticeDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public NoticeVO selectByNo(int no) throws SQLException {
+	public NoticeVO selectByNo(int annNo) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -115,12 +124,13 @@ public class NoticeDAO {
 			//3
 			String sql = "SELECT * FROM ANNOUNCEMENT WHERE ANNNO = ?";
 			ps = con.prepareStatement(sql);
-			ps.setInt(1,  no);
+			ps.setInt(1,  annNo);
 			
 			//4.
 			rs = ps.executeQuery();
 			NoticeVO vo = null;
 			if(rs.next()) {
+				vo = new NoticeVO();
 				String annTitle = rs.getString("anntitle");
 				String annContent = rs.getString("anncontent");
 				Timestamp regdate = rs.getTimestamp("regdate");
@@ -130,6 +140,7 @@ public class NoticeDAO {
 				long fileSize = rs.getLong("fileSize");
 				int readCount = rs.getInt("readCount");
 				
+				vo.setAnnNo(annNo);
 				vo.setAnnTitle(annTitle);
 				vo.setAnnContent(annContent);
 				vo.setRegdate(regdate);
@@ -139,7 +150,7 @@ public class NoticeDAO {
 				vo.setFileSize(fileSize);
 				vo.setReadCount(readCount);
 				
-				System.out.println("조회완료, vo = " + vo + ", 조회번호 no = " + no);
+				System.out.println("조회완료, vo = " + vo + ", 조회번호 annNo = " + annNo);
 			}
 			return vo;
 		}finally {

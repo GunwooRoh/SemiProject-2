@@ -62,10 +62,20 @@ table{
 #paging {
     margin: 0 50%;
 }
+
+td a {
+    text-decoration: none;
+    color: black;
+}
+</style>
 </body>
 <%
 	//noticeWrite.jsp에서 글 등록 완료 시 GET방식으로 이동
 	//1
+	
+	request.setCharacterEncoding("utf-8");
+	String keyword = request.getParameter("searchKeyword");
+	if(keyword == null) keyword="";
 	/* String selectedOption = request.getParameter("selectOption");
 	String selOption = "";
 	
@@ -89,7 +99,7 @@ table{
 	NoticeService noticeSer = new NoticeService();
 	List<NoticeVO> list = null;
 	try{
-		list = noticeSer.selectAll();
+		list = noticeSer.selectAll(keyword);
 		
 	}catch(SQLException e){
 		e.printStackTrace();
@@ -97,19 +107,46 @@ table{
 	//3. 결과 처리
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
+	//페이징 처리
+	int currentPage =1;	//현재 페이지
+	
+	if(request.getParameter("currentPage")!=null){
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	}
+	
+	//[1] 현재 페이지랑 무관한 변수
+	int totalRecord = list.size();
+	int pageSize = 5;	//화면에 보일 공지사항 갯수
+	int blockSize = 5;	//화면에 보일 페이지 갯수
+	int totalPage = (int)Math.ceil((float)totalRecord/pageSize);	//총 페이지 수
+
+	//[2] 현재 페이지 이용해서 계산해야 하는 변수
+	int firstPage = currentPage - ((currentPage-1)%blockSize);	//1, 6, 11..블럭 시작 페이지
+	int lastPage = firstPage + (blockSize-1); //5, 10, 15...
+	
+	//페이지당 ArrayList에서의 시작 index => 0, 4,...
+	int curPos = (currentPage-1)*pageSize;
+	
+	//페이지당 글 리스트 시작 번호
+	int num = totalRecord - curPos;
 
 %>
-</html>
-</style>
-</head>
+
 <body>
+<div>
+	<%if(keyword!=null && !keyword.isEmpty()){  %>
+	<p>검색어 : <%=keyword %>, <%=list.size() %>건 검색되었습니다.</p>
+	<%} %>
+</div>
 <div id = "ann_box">
 	<strong>공지사항</strong> 
 	 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-	 <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="검색어를 입력하세요." aria-label="Recipient's username" aria-describedby="button-addon2">
-  <button class="btn btn-outline-secondary" type="button" id="button-addon2">찾기</button>
-</div>
+	 <form name = "search" method="post" action = "noticeList.jsp">
+		 <div class="input-group mb-3">
+	 		 <input type="text" class="form-control" name="searchKeyword" placeholder="검색어를 입력하세요." aria-label="Recipient's username" aria-describedby="button-addon2" value= "<%=keyword %>">
+	  		<input type="submit" class="btn btn-outline-secondary" type="button" id="button-addon2" value = "찾기">
+		</div>
+</form>
 	<table class="table table-striped table-hover" >
   		<thead>
   			<tr>
@@ -129,11 +166,15 @@ table{
   				</td>
   			</tr>
   		<%}else{ 
-  			for(int i=0; i<list.size(); i++){
-  			NoticeVO vo = list.get(i);%>
+  			for(int i=0; i<pageSize; i++){
+  				if(num<1) break;
+  				
+  				NoticeVO vo = list.get(curPos++);
+  				num--;
+  			%>
   			<tr>
 	  			<td><%= vo.getAnnNo() %></td>
-	  			<td><a href = "noticeDetail.jsp?no=<%=vo.getAnnNo()%>"><%=vo.getAnnTitle() %></a></td>
+	  			<td><a href = "countUpdate.jsp?annNo=<%=vo.getAnnNo()%>"><%=vo.getAnnTitle() %></a></td>
 	  			<td>관리자</td>
 	  			<td><%= sdf.format(vo.getRegdate()) %></td>
 	  			<td><%=vo.getReadCount() %></td>
@@ -146,19 +187,29 @@ table{
 	<div id = "paging">
 	<nav aria-label="Page navigation example">
   <ul class="pagination">
+	<!-- 페이지 번호 추가 -->
+	<!--  이전 블럭으로 이동 -->
+	<%if(firstPage>1){ %>
     <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
+      <a class="page-link" href="noticeList.jsp?currentPage=<%=firstPage-1%>" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
+	<%} %>
+    <%for(int i=firstPage;i<=lastPage;i++){
+    	if(i>totalPage) break;%>
+	    <li class="page-item">
+	    	<a class="page-link" href="noticeList.jsp?currentPage=<%=i%>&searchkeyword=<%=keyword%>"><%=i %></a>
+	    </li>
+    <%}//for %>
+    <!-- 다음 블럭으로 이동 -->
+    <% if(lastPage<totalPage){ %>
     <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
+      <a class="page-link" href="noticeList.jsp?currentPage=<%=lastPage+1 %>" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
+      <%} %>
   </ul>
 </nav>
 </div>
