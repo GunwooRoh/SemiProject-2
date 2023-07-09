@@ -1,3 +1,8 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.hotel.model.hotelService"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="com.hotel.model.hotelVO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/Layout/top.jsp" %>
@@ -106,14 +111,64 @@
 
 }
 </style>
+
+<jsp:useBean id="hotelService" class="com.hotel.model.hotelService"></jsp:useBean>
+<jsp:useBean id="hotelVo" class="com.hotel.model.hotelVO"></jsp:useBean>
+<jsp:useBean id="facilities" class="com.facilities.model.facilitiesDAO"></jsp:useBean>
+<jsp:useBean id="facilitiesVo" class="com.facilities.model.facilitiesVO"></jsp:useBean>
 <%
 	//1. 요청파라미터 인코딩
 	request.setCharacterEncoding("utf-8");
-	//2. db작업
+
+	String keyword=request.getParameter("searchKeyword");
+	String condition=request.getParameter("searchCondition");
 	
+	//2. db작업
+	List<hotelVO> list = null;
+	hotelVO vo = new hotelVO();
+	try{
+		
+		list = hotelService.selectAll(keyword, condition);
+		
+	}catch(SQLException e){
+		e.printStackTrace();
+	}
+	
+	if(keyword==null) keyword="";
 	
 	//3. 
+	
+	/* 페이징 처리 */
+	int currentPage=1;// 현재페이지
+	
+	if(request.getParameter("currentPage")!=null){
+		currentPage=Integer.parseInt(request.getParameter("currentPage"));
+	}
+	//아코디언
+	List<String> accorList=new ArrayList<>();
+	accorList.add("One");
+	accorList.add("Two");
+	accorList.add("Three");
+	String accordion="";
+	
+	//[1] 현재 페이지와 무관한 변수
+	int totalRecord=list.size(); //토탈 레코드갯수 리스트사이즈
+	int pageSize=3; //한 페이지에 보여줄 레코드 수
+	int blockSize=10;//한 블럭에 보여줄 페이지 수
+	int totalPage=(int)Math.ceil((float)totalRecord/pageSize); //총 페이지 수
+	
+	//[2] 현재 페이지를 이용해서 계산하는 변수
+	int firstPage = currentPage-((currentPage-1)%blockSize); //1,11,21,31.. 블럭의시작 
+	int lastPage = firstPage+(blockSize-1);//10,20,30.. 블럭의 마지막 페이지
+	
+	//페이지당 ArrayList에서의 시작 index =) 0,3,6,9,12...
+	int curPos = (currentPage-1)*pageSize;
+	
+	//페이지당 글 리스트 시작 번호
+	int num= totalRecord-curPos;
 %>
+
+
 <nav id="nav1">
 <!-- 	<div class="search_input_box">
 		<div class="search_input rooms_box">
@@ -294,30 +349,48 @@
 </nav>
 <main id="main">
 <div class="accordion" id="accordionPanelsStayOpenExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-       	<input type="image" src="../images/hotel3.jpg" alt="호텔이미지" style="width:600px; height: 300px">
-      </button>
-    </h2>
-    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-      <div class="accordion-body">
-        <strong>롯데시티호텔 제주</strong><br>
-        <img alt="Breakfast" src="../images/breakfast.png" class="icon">조식<br>
-        <img alt="conStore" src="../images/conStore.png" class="icon">편의점<br>
-        <img alt="laundryRoom" src="../images/laundryRoom.png" class="icon">세탁실<br>
-        <img alt="pool" src="../images/pool.png" class="icon">수영장<br>
-        <img alt="parking" src="../images/parking.png" class="icon">주차장<br>
-        <img alt="valetparking" src="../images/valetparking.png" class="icon">발렛파킹<br>
-        <img alt="loungeBar" src="../images/loungeBar.png" class="icon">라운지바<br>
-        <img alt="withPet" src="../images/withPet.png" class="icon">애완동물 동반 가능 여부<br><br>
-        <strong>1박 최저가</strong>&nbsp;<span style="color: gray">78,800￦</span>
-        <button type="button" class="btn btn-outline-primary" style="float: right;">여기,갈래!</button>
-        <button type="button" class="btn btn-outline-warning" style="float: right;">리뷰,볼래!</button><br><br>
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
+	<%if(list==null || list.isEmpty()) {%>
+		<script type="text/javascript">
+			alert("해당정보에 대한 호텔이 없습니다.");
+			location.href="<%=request.getContextPath()%>/hotel/hotelList2.jsp";
+		</script>
+	<%}else{%>
+		<!-- 호텔 아코디온 내용 반복문 시작 -->
+		<%
+		//3번씩만 반복
+		for(int i=0; i<pageSize; i++){
+			if(num<1) break;
+			hotelVO hotelvo = list.get(curPos++);
+			accordion = accorList.get(i);
+			num--; %>
+		
+	  <div class="accordion-item">
+	    <h2 class="accordion-header" id="panelsStayOpen-heading<%=accordion %>">
+	      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=accordion %>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=accordion %>">
+	       	<input type="image" src="<%=request.getContextPath() %>/images/<%=hotelvo.getImage() %>" alt="호텔이미지" style="width:600px; height: 300px">
+	      </button>
+	    </h2>
+	    <div id="panelsStayOpen-collapse<%=accordion %>" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading<%=accordion %>">
+	      <div class="accordion-body">
+	        <strong><%=hotelVo.getHotelName() %></strong><br>
+	        <img alt="Breakfast" src="../images/breakfast.png" class="icon">조식<br>
+	        <img alt="conStore" src="../images/conStore.png" class="icon">편의점<br>
+	        <img alt="laundryRoom" src="../images/laundryRoom.png" class="icon">세탁실<br>
+	        <img alt="pool" src="../images/pool.png" class="icon">수영장<br>
+	        <img alt="parking" src="../images/parking.png" class="icon">주차장<br>
+	        <img alt="valetparking" src="../images/valetparking.png" class="icon">발렛파킹<br>
+	        <img alt="loungeBar" src="../images/loungeBar.png" class="icon">라운지바<br>
+	        <img alt="withPet" src="../images/withPet.png" class="icon">애완동물 동반 가능 여부<br><br>
+	        <strong>1박 최저가</strong>&nbsp;<span style="color: gray">78,800￦</span>
+	        <button type="button" class="btn btn-outline-primary" style="float: right;" onclick="#">여기,갈래!</button>
+	        <button type="button" class="btn btn-outline-warning" style="float: right;" onclick="#">리뷰,볼래!</button><br><br>
+	      </div>
+	    </div>
+	  </div>
+		<%}//for %>
+	<%}//if%>
+  
+<!--   <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
        	<input type="image" src="../images/hotel3.jpg" alt="호텔이미지" style="width:600px; height: 300px">
@@ -340,6 +413,7 @@
       </div>
     </div>
   </div>
+  
   <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingThree">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
@@ -363,9 +437,37 @@
         <button type="button" class="btn btn-outline-warning" style="float: right;">리뷰,볼래!</button><br><br>
       </div>
     </div>
-  </div>
+  </div> -->
 
   
+</div>
+<div class="divPage">
+	<!-- 페이지 번호
+	이전 블럭으로 이동 -->
+	<%if(firstPage>1) {%>
+		<a href="hotelList2.jsp?currentPage=<%=firstPage-1%>">
+			<img src="<%=request.getContextPath()%>/images/firstPage.png">
+		</a>
+	<%} %>
+	
+	<!-- [1][2][3][4][5][6][7][8][9][10] -->
+	<%for(int i=firstPage; i<=lastPage; i++) {
+		if(i>totalPage) break;%>
+		<%if(currentPage!=i){%>
+		<a href="hotelList2.jsp?currentPage=<%=i%>&searchKeyword=<%=keyword%>&searchCondition=<%=condition%>">[<%=i %>]</a>
+		<%}else{%>
+		<span style="color:#4857a5; font-size:14px; font-weight:bold">[<%=i %>]</span>
+		<%} %>
+	
+	<%}//for %>
+	
+	<!-- 다음 블록으로 이동 -->
+	<%if(lastPage<totalPage){ %>
+		<a href="hotelList2.jsp?currentPage=<%=lastPage+1%>">
+			<img src="<%=request.getContextPath()%>/images/lastPage.png">
+		</a>
+	<%} %>	
+	<!-- 페이지번호 끝 -->
 </div>
 </main>
 <%@include file="/Layout/bottom.jsp" %>
