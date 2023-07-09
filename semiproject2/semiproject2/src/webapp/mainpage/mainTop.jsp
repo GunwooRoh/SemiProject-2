@@ -41,12 +41,6 @@
 </head>
 
 <body>
-  <!-- 로고 -->
-  <div class="introLogo">
-    <p style = "color:#4857A5"><strong>이젠, 갈래?</strong></p>
-  </div>
-
-  <!--  <div class="topBtn">   -->
   <div class="topBtn">
     <span>
       <img src="./img/ind_arrow-down.svg" alt="아래 화살표" id="downArrow">
@@ -56,11 +50,6 @@
     </span>
   </div>
 
-  <!-- header -->
-  <!-- 메뉴 -->
-  <!-- 메뉴 -->
-  <!--<div class="header container clearfix">
-	-->
   <header>
       <h1>
       
@@ -68,6 +57,35 @@
       </h1>
       <ul id="gnb">
         <li>
+     <ul class="subMenu">
+          <a href="./whatWeDo/whatWeDo.html">what we do</a>
+            <li><a href="./whatWeDo/whatWeDo.html">Platform business</a></li>
+            <li><a href="#">Hospitality solution</a></li>
+            <li><a href="#">Space business</a></li>
+            <li><a href="#">Partnership</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Tech story</a></li>
+        <li>
+          <a href="#">Newsroom <img src="./img/arrow_outlink.svg" alt="메뉴_화살표" /></a>
+        </li>
+        <li>
+          <a href="#">IR</a>
+          <ul class="subMenu">
+           <li><a href="#">공시</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="./ESG/ESG.html">ESG</a>
+          <ul class="subMenu">
+            <li><a href="./ESG/ESG.html">ESG vision</a></li>
+            <li><a href="#">ESG commitments</a></li>
+            <li><a href="#">ESG news</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Adminonly <img src="./img/arrow_outlink.svg" alt="메뉴_화살표" /></a>
+        </li> 
         <li id="menubt">
           <%if(t_isLogin){ //로그인된 경우%>
           <a href="http://localhost:9090/semi2/eunjung/inc/Login/loout.jsp" id="langEng">Logout</a>
@@ -81,52 +99,3 @@
       </ul>
     </header>
   </div> 
-
-
-    <!-- ------ sec1 ------ -->
-    
-    <section class="sec3">
-      <div class="abs">
-        <div class="container">
-          <div class="sec3Txt txtBox">
-            <em>Space business</em>
-            <h1 class="title">
-              <p><span class="del">여가 생활의</span></p>
-              <p><span class="del1">가치를 극대화하는</span></p>
-              <p><span class="del2">공간 디자인</span></p>
-            </h1>
-            <div class="sTxtWrapper">
-              <p class="sTxt">
-                <em>호텔에서 업무·문화·주거 공간까지<br>
-                  공간에 대한 모든 호텔 예약 서비스를 제공합니다.</em>
-              </p>
-            </div>
-            <div class="hovBox">
-              <span>
-                <img src="./img/ind_arrow-whLong.svg" alt="흰긴화살표">
-              </span>
-              <a href="./whatWeDo.html">Space business</a>
-              <img src="./img/ind_arrow-long.svg" alt="긴화살표" class="gone">
-            </div>
-          </div><!-- sec3_txt -->
-        </div> <!-- container -->
-      </div>
-      <div class="sticky">
-        <div class="ulHo">
-          <!-- <ul class="Slider"> -->
-          <img src="./img/index_sec3_1.jpg" alt="img" class="fade-out fadeOut1">
-          <img src="./img/index_sec3_2.jpg" alt="img" class="fade-out fadeOut2">
-          <img src="./img/index_sec3_3.jpg" alt="img" class="fade-out fadeOut3">
-          <img src="./img/index_sec3_4.jpg" alt="img" class="fade-out fadeOut4">
-          <img src="./img/index_sec3_5.jpg" alt="img" class="fade-out fadeOut5">
-          <!-- </ul> -->
-        </div>
-      </div>
-    </section>
-    <!-- ------ sec4 ------ -->
-    <section class="sec4">
-  
-    </section>
-
-<%@ include file = "../form/bottom.jsp" %>
-</html> 

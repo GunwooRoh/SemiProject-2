@@ -43,7 +43,7 @@ header h1 img {
 }
 /* 메뉴 */
 #gnb {
-  color: #fff;
+  color: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -62,7 +62,7 @@ header h1 img {
   display: block;
   padding: 9px;
 }
-#gnb #menuLang {
+#gnb #menubt {
   padding-right: 0;
   margin-left: 90px;
   display: flex;
@@ -97,17 +97,23 @@ header h1 img {
   color: #000;
   transform: translateX(5px);
 }
+
+img#logoimg {
+    width: 250px;
+    margin-left: 80px;
+}
+
 /* 서브메뉴 show */
 .container.showMenu {
-  background-color: #fff;
+  background-color: black;
   height: 250px;
 }
 .container.showMenu #gnb .subMenu {
-  color: #000;
+  color:black;
   opacity: 1;
 }
 .container.showMenu #gnb li {
-  color: #000;
+  color:black;
   line-height: 1.5;
 }
 .container.showMenu #gnb img {
