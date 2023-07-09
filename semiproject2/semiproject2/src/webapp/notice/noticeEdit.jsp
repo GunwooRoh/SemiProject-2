@@ -1,8 +1,11 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="com.notice.model.NoticeVO"%>
+<%@page import="com.notice.model.NoticeService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../form/top.jsp"%>
 <!-- <link rel="stylesheet" type="text/css" href="/css/noticeWriteCss.css" />  -->
-<title>공지사항 등록</title>
+<title>공지사항 수정</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -74,13 +77,36 @@ strong {
 }
 </style>
 <body>
+<%
+	//noticeDetail.jsp?annNo=?에서 수정 누르면 GET 방식으로 이동
+	//1.
+	String annNo = request.getParameter("annNo");
+	String fileName = request.getParameter("fileName");
+	if(fileName==null) fileName = "";
+	if(annNo==null || annNo.isEmpty()){%>
+		<script type="text/javascript">
+			alert("잘못된 URL입니다.");
+			location.href = "noticeList.jsp";
+		</script>
+	<%}
+
+	//2.
+	NoticeService noticeSer = new NoticeService();
+	NoticeVO vo = null;
+	try{
+		vo = noticeSer.selectByNo(Integer.parseInt(annNo));
+	}catch(SQLException e){
+		e.printStackTrace();
+	}
+	
+%>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 		crossorigin="anonymous"></script>
 	<script type="text/javascript" src = "../tool/naver-smarteditor2-ca95d21/demo/js/service/HuskyEZCreator.js" charset = "utf-8"></script>
 	<div class="box">
-		<form name="frm" method="post" action="noticeWrite_ok.jsp" enctype = "multipart/form-data" >
+		<form name="frm" method="post" action="noticeEdit_ok.jsp" enctype = "multipart/form-data" >
 			<strong>공지사항</strong> 
 			
 			<!--  <select class="form-select" aria-label="Default select example" name="selectOption">
@@ -94,22 +120,29 @@ strong {
 				<label for="exampleFormControlInput1" class="form-label">제목</label>
 				<!-- 관리자번호 FK이므로 hidden 필드에 넣어서 보내주기 -->
 				<input type="text" class="form-control"
-					id="exampleFormControlInput1" name="annTitle" placeholder="제목을 입력해주세요.">
+					id="exampleFormControlInput1" name="annTitle" value = "<%=vo.getAnnTitle()%>">
 			</div>
 			
 			<div class="mb-3">
 				<label for="exampleFormControlTextarea1" class="form-label">내용</label>
 				<textarea class="form-control" id="exampleFormControlTextarea1" name="annContent"
-					rows="30" placeholder="내용을 입력해주세요."></textarea>
+					rows="30" ><%=vo.getAnnContent() %></textarea>
 			</div>
 			<div class="mb-4">
 				<label for="exampleFormControlTextarea1" class="form-label">첨부파일 :</label>
 				<input type="file" id = "upfile" name = "upfile"/>
 			</div>
-			<div class="mb-5">
-				<input type="submit" id="btn1" value = "등록" onclick=submitContents()>
-				<input type="reset"  id="btn2" value = "취소" onclick="noticeList.jsp">
+			<div>
+				<span>첨부파일 목록</span>
+				<% if(fileName!=null && !fileName.isEmpty()){ %>
+					<span>
+					첨부파일을 새로 저장할 경우 기존 파일은 삭제됩니다.</span>
+				<%} %>
 			</div>
+			<div class="mb-5">
+				<input type="submit" id="btn1" value = "수정" onclick=submitContents()>
+				<input type="reset"  id="btn2" value = "취소" onclick="noticeList.jsp">
+			</div> 
 		</form>
 	</div>
 </body>
@@ -118,17 +151,18 @@ strong {
 <script type = "text/javascript">
 	var oEditors = [];
 	
+	$(function(){
 	//Editor Setting
 	nhn.husky.EZCreator.createInIFrame({ 
 		oAppRef: oEditors,
 		elPlaceHolder: "exampleFormControlTextarea1", //아이디
 		sSkinURI: "../tool/naver-smarteditor2-ca95d21/demo/SmartEditor2Skin.html",
 		fCreator : "createSEditor2",	
-	/*	htParams : {	//툴바 사용 여부
-			bUseToolbar : true	//입력창 크기 조절바 사용 여부
+		htParams : {	//툴바 사용 여부
+		bUseToolbar : true	//입력창 크기 조절바 사용 여부
 			//bUseVerticalResizer : true;	//모드 탭(Editor) 사용 여부
 			bUseModeChanger : true	//전송버튼 클릭
-		}*/
+		}
 		
 	});
 	
@@ -138,7 +172,6 @@ strong {
 	
 	}
 	
-	$(function(){
 		$('#exampleFormControlInput1').focus();
 		
 		$('#btn1').click(function(){
@@ -166,5 +199,5 @@ strong {
 			});
 		}
 		
-	
+	}
 </script>
