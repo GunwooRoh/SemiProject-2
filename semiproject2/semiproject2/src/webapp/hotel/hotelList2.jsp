@@ -6,6 +6,27 @@
 <script type="text/javascript" src="../js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 
+	$(function() {
+
+		$(".passengers-select-text").click(
+				function() {
+
+					if (!$(".passengers-select-option").hasClass("hide")) {
+						$(".fa-angle-down").toggleClass("hide")
+						$(".fa-angle-up").toggleClass("hide");
+						var sum = 0;
+						$(".passengers-select-option input").each(
+								function(index, elem) {
+									sum += parseInt($(elem).val());
+									$(".passengers-select-nmb").text(sum);
+								});
+					}
+
+					$(".passengers-select-options-container").toggleClass(
+							"hide");
+
+				});
+	});
 </script>
 <script src="../js/script.js"></script>
 
@@ -85,8 +106,16 @@
 
 }
 </style>
+<%
+	//1. 요청파라미터 인코딩
+	request.setCharacterEncoding("utf-8");
+	//2. db작업
+	
+	
+	//3. 
+%>
 <nav id="nav1">
-	<div class="search_input_box">
+<!-- 	<div class="search_input_box">
 		<div class="search_input rooms_box">
 			<div>
 				<a href="#">
@@ -222,25 +251,34 @@
 				</table>
 			</div>
 		</div>
-	</div>
-	<!-- 	<div class="search_input rooms_box">
+	</div> -->
+ <!-- 에어비앤비 캘린더 end -->
+	<div class="search_input rooms_box">
 		<div>
 			<a href="#">
 				<div>위치</div> <input type="text" placeholder="어디로 여행가세요?">
 			</a>
 		</div>
-		<div class="search_input__start_date">
+		<div class="flight-search-date-start">
+		<label style="margin-right: 70px;">체크 인</label>
+	   	 <input type="date" name="checkin">
+	    </div>
+<!-- 		<div class="search_input__start_date">
 			<a href="#">
 				<div>체크인</div> <input type="datetime" placeholder="날짜 추가"
 				readonly="">
 			</a>
-		</div>
-		<div class="search_input__end_date">
+		</div> -->
+	     <div class="flight-search-date-end">
+	     <label style="margin-right: 60px;">체크 아웃</label>
+	    <input type="date" name="checkout">
+	    </div>
+	<!-- 	<div class="search_input__end_date">
 			<a href="#">
 				<div>체크아웃</div> <input type="datetime" placeholder="날짜 추가"
 				readonly="">
 			</a>
-		</div>
+		</div> -->
 		<div>
 			<a href="#">
 				<div>인원</div> <input type="number" placeholder="게스트 추가">
@@ -251,9 +289,8 @@
 				<img src="../images/search.png" class="magnifying_glass">
 			</button>
 		</div>
-	달력
-	
-	</div> serach input room -->
+	</div> 
+	<!-- serach input room -->
 </nav>
 <main id="main">
 <div class="accordion" id="accordionPanelsStayOpenExample">
