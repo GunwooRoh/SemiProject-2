@@ -1,4 +1,11 @@
 @charset "UTF-8";
+
+#nav1 {
+	margin-top: 50px;
+	padding: 10px;
+	background-color: #4857a5;
+}
+
 body {
   margin: 0;
 }

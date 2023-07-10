@@ -101,7 +101,7 @@ public class hotelDAO {
 				int hotelGrade = rs.getInt("hotelGrade");
 				String hotelDetail = rs.getString("hotelDetail");
 				int adminNo = rs.getInt("adminNo");
-				String image = rs.getString("image");
+				String image = rs.getString("main_image");
 
 				hotelVO vo
 				=new hotelVO(hotelNo, hotelName, longitude, latitude, address, hotelGrade, hotelDetail, adminNo, image);
@@ -148,7 +148,7 @@ public class hotelDAO {
 				int hotelGrade = rs.getInt("hotelGrade");
 				String hotelDetail = rs.getString("hotelDetail");
 				int adminNo = rs.getInt("adminNo");
-				String image = rs.getString("image");
+				String image = rs.getString("main_image");
 				
 				vo.setHotelName(hotelName);
 				vo.setLongitude(longitude);

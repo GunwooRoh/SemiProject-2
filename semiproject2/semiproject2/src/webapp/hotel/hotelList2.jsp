@@ -1,13 +1,14 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.hotel.model.hotelService"%>
-<%@page import="java.sql.SQLException"%>
+<%@page import="com.facilities.model.facilitiesVO"%>
 <%@page import="com.hotel.model.hotelVO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.sql.SQLException"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/Layout/top.jsp" %>
 
-<link rel="stylesheet" href="../css/hotel.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link rel="stylesheet" href="../css/hotelcss.css">
 <script type="text/javascript" src="../js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 
@@ -31,19 +32,29 @@
 							"hide");
 
 				});
+		
+
+
+		
+		
 	});
 </script>
 <script src="../js/script.js"></script>
 
 <style type="text/css">
 
-
+	#divPage{
+		margin: 0 auto;
+		text-align: center;
+		font-size: 25px;
+		
+	}
 	#accordionPanelsStayOpenExample {
 		margin-left: 200px;
 		margin-right: 500px
 	}
 	
- 	#nav1 {
+	#nav1 {
 		margin-top: 50px;
 		padding: 10px;
 		background-color: #4857a5;
@@ -112,10 +123,8 @@
 }
 </style>
 
-<jsp:useBean id="hotelService" class="com.hotel.model.hotelService"></jsp:useBean>
-<jsp:useBean id="hotelVo" class="com.hotel.model.hotelVO"></jsp:useBean>
-<jsp:useBean id="facilities" class="com.facilities.model.facilitiesDAO"></jsp:useBean>
-<jsp:useBean id="facilitiesVo" class="com.facilities.model.facilitiesVO"></jsp:useBean>
+<jsp:useBean id="service" class="com.hotel.model.hotelService" scope="session"></jsp:useBean>
+<jsp:useBean id="facilService" class="com.facilities.model.facilitiesService" scope="session"></jsp:useBean>
 <%
 	//1. 요청파라미터 인코딩
 	request.setCharacterEncoding("utf-8");
@@ -125,15 +134,14 @@
 	
 	//2. db작업
 	List<hotelVO> list = null;
-	hotelVO vo = new hotelVO();
 	try{
 		
-		list = hotelService.selectAll(keyword, condition);
+		list = service.selectAll(keyword, condition);
 		
 	}catch(SQLException e){
 		e.printStackTrace();
 	}
-	
+	System.out.println("list="+list.size());
 	if(keyword==null) keyword="";
 	
 	//3. 
@@ -149,7 +157,6 @@
 	accorList.add("One");
 	accorList.add("Two");
 	accorList.add("Three");
-	String accordion="";
 	
 	//[1] 현재 페이지와 무관한 변수
 	int totalRecord=list.size(); //토탈 레코드갯수 리스트사이즈
@@ -170,170 +177,23 @@
 
 
 <nav id="nav1">
-<!-- 	<div class="search_input_box">
-		<div class="search_input rooms_box">
-			<div>
-				<a href="#">
-					<div>위치</div> <input type="text" placeholder="어디로 여행가세요?">
-				</a>
-			</div>
-			<div class="search_input__start_date">
-				<a href="#">
-					<div>체크인</div> <input type="datetime" placeholder="날짜 추가"
-					readonly="">
-				</a>
-			</div>
-			<div class="search_input__end_date">
-				<a href="#">
-					<div>체크아웃</div> <input type="datetime" placeholder="날짜 추가"
-					readonly="">
-				</a>
-			</div>
-			<div>
-				<a href="#">
-					<div>인원</div> <input type="number" placeholder="게스트 추가">
-				</a>
-			</div>
-			<div>
-				<button class="search_button" style="text-align: center;">
-					<img src="./images/magnifyingGlass.svg" class="magnifying_glass">
-				</button>
-			</div>
-		</div>
-		<div class="search_input experience_box display_none">
-			<div style="width: 52%">
-				<a href="#">
-					<div style="margin: 0 39px">위치</div> <input type="text"
-					placeholder="어디로 여행가세요?" style="width: 80.5%">
-				</a>
-			</div>
-			<div class="search_input__full_date" style="width: 52%">
-				<a href="#">
-					<div style="margin: 0 39px">날짜</div> <input type="datetime"
-					placeholder="원하는 날짜를 입력하세요." style="width: 80.5%" readonly="">
-				</a>
-			</div>
-			<div>
-				<button class="search_button" style="text-align: center;">
-					<img src="./images/magnifyingGlass.svg" class="magnifying_glass">
-				</button>
-			</div>
-		</div>
-		<div class="calender_box font14">
-			<div
-				class="width50per border-radius32 text_center calender_box__inside_box">
-			</div>
-			<div
-				class="width50per white_background border-radius32 text_center calender_box__inside_box">
-				<button class="calender_box--left_button">
-					<img src="./images/leftCalenderButton.svg" alt=""
-						style="width: 10px;">
-				</button>
-				<button class="calender_box--right_button">
-					<img src="./images/rightCalenderButton.svg" alt=""
-						style="width: 10px;">
-				</button>
-				<table class="calender_box__table">
-					<tbody>
-						<tr class="font16">
-							<th class="calender_box__inside_box--month" colspan="7">2023년
-								7월</th>
-						</tr>
-						<tr class="font12 font_gray">
-							<td>일</td>
-							<td>월</td>
-							<td>화</td>
-							<td>수</td>
-							<td>목</td>
-							<td>금</td>
-							<td>토</td>
-						</tr>
-						<tr class="calender_box__table__tr">
-							<td class="calender_box__table__past_date"></td>
-							<td class="calender_box__table__past_date"></td>
-							<td class="calender_box__table__past_date"></td>
-							<td class="calender_box__table__past_date"></td>
-							<td class="calender_box__table__past_date"></td>
-							<td class="calender_box__table__past_date"></td>
-							<td class="calender_box__table__past_date">1</td>
-						</tr>
-						<tr class="calender_box__table__tr">
-							<td class="calender_box__table__past_date">2</td>
-							<td class="calender_box__table__past_date">3</td>
-							<td class="calender_box__table__past_date">4</td>
-							<td class="calender_box__table__past_date">5</td>
-							<td class="calender_box__table__past_date">6</td>
-							<td class="calender_box__table__past_date">7</td>
-							<td class="">8</td>
-						</tr>
-						<tr class="calender_box__table__tr">
-							<td class="">9</td>
-							<td class="">10</td>
-							<td class="">11</td>
-							<td class="">12</td>
-							<td class="">13</td>
-							<td class="">14</td>
-							<td class="">15</td>
-						</tr>
-						<tr class="calender_box__table__tr">
-							<td class="">16</td>
-							<td class="">17</td>
-							<td class="">18</td>
-							<td class="">19</td>
-							<td class="">20</td>
-							<td class="">21</td>
-							<td class="">22</td>
-						</tr>
-						<tr class="calender_box__table__tr">
-							<td class="">23</td>
-							<td class="">24</td>
-							<td class="">25</td>
-							<td class="">26</td>
-							<td class="">27</td>
-							<td class="">28</td>
-							<td class="">29</td>
-						</tr>
-						<tr class="calender_box__table__tr">
-							<td class="">30</td>
-							<td class="">31</td>
-							<td class="calender_box__table__past_date"></td>
-							<td class="calender_box__table__past_date"></td>
-							<td class="calender_box__table__past_date"></td>
-							<td class="calender_box__table__past_date"></td>
-							<td class="calender_box__table__past_date"></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div> -->
- <!-- 에어비앤비 캘린더 end -->
 	<div class="search_input rooms_box">
 		<div>
 			<a href="#">
 				<div>위치</div> <input type="text" placeholder="어디로 여행가세요?">
 			</a>
 		</div>
+		
 		<div class="flight-search-date-start">
 		<label style="margin-right: 70px;">체크 인</label>
 	   	 <input type="date" name="checkin">
 	    </div>
-<!-- 		<div class="search_input__start_date">
-			<a href="#">
-				<div>체크인</div> <input type="datetime" placeholder="날짜 추가"
-				readonly="">
-			</a>
-		</div> -->
+		
 	     <div class="flight-search-date-end">
 	     <label style="margin-right: 60px;">체크 아웃</label>
 	    <input type="date" name="checkout">
 	    </div>
-	<!-- 	<div class="search_input__end_date">
-			<a href="#">
-				<div>체크아웃</div> <input type="datetime" placeholder="날짜 추가"
-				readonly="">
-			</a>
-		</div> -->
+
 		<div>
 			<a href="#">
 				<div>인원</div> <input type="number" placeholder="게스트 추가">
@@ -360,33 +220,54 @@
 		//3번씩만 반복
 		for(int i=0; i<pageSize; i++){
 			if(num<1) break;
-			hotelVO hotelvo = list.get(curPos++);
-			accordion = accorList.get(i);
+			hotelVO vo = list.get(curPos++);
+			facilitiesVO facilities =facilService.selectByhotelNo(vo.getHotelNo());
 			num--; %>
 		
 	  <div class="accordion-item">
-	    <h2 class="accordion-header" id="panelsStayOpen-heading<%=accordion %>">
-	      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=accordion %>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=accordion %>">
-	       	<input type="image" src="<%=request.getContextPath() %>/images/<%=hotelvo.getImage() %>" alt="호텔이미지" style="width:600px; height: 300px">
+	    <h2 class="accordion-header" id="panelsStayOpen-heading<%=accorList.get(i) %>">
+	      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=accorList.get(i) %>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=accorList.get(i) %>">
+	       	<input type="image" src="<%=request.getContextPath() %>/images/<%=vo.getImage() %>" alt="호텔이미지" style="width:600px; height: 300px">
 	      </button>
 	    </h2>
-	    <div id="panelsStayOpen-collapse<%=accordion %>" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading<%=accordion %>">
+	    <div id="panelsStayOpen-collapse<%=accorList.get(i) %>" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading<%=accorList.get(i) %>">
 	      <div class="accordion-body">
-	        <strong><%=hotelVo.getHotelName() %></strong><br>
-	        <img alt="Breakfast" src="../images/breakfast.png" class="icon">조식<br>
-	        <img alt="conStore" src="../images/conStore.png" class="icon">편의점<br>
-	        <img alt="laundryRoom" src="../images/laundryRoom.png" class="icon">세탁실<br>
-	        <img alt="pool" src="../images/pool.png" class="icon">수영장<br>
-	        <img alt="parking" src="../images/parking.png" class="icon">주차장<br>
-	        <img alt="valetparking" src="../images/valetparking.png" class="icon">발렛파킹<br>
-	        <img alt="loungeBar" src="../images/loungeBar.png" class="icon">라운지바<br>
-	        <img alt="withPet" src="../images/withPet.png" class="icon">애완동물 동반 가능 여부<br><br>
+	        <strong><%=vo.getHotelName() %></strong><br>
+	    <%if(facilities.getConv_store()==1){%>
+		<span><img alt="conStore" src="../images/conStore.png" class="icon">편의점</span><br>
+		<%} %>
+		<%if(facilities.getLaundry_room() == 1){%>
+		<span><img alt="laundryRoom" src="../images/laundryRoom.png" class="icon">세탁실</span><br>
+		<%} %>
+		<%if(facilities.getParking() == 1){%>
+		<span><img alt="parking" src="../images/parking.png" class="icon">주차장</span><br>
+		<%} %>
+		<%if(facilities.getValet_parking() == 1){%>
+		<span><img alt="valetparking" src="../images/valetparking.png" class="icon">발렛파킹</span><br>
+		<%} %>
+		<%if(facilities.getBreakfast() == 1){%>
+		<span><img alt="Breakfast" src="../images/breakfast.png" class="icon">조식</span><br>
+		<%} %>
+		<%if(facilities.getPool() == 1){%>
+		<span><img alt="pool" src="../images/pool.png" class="icon">수영장</span><br>
+		<%} %>
+		<%if(facilities.getLounge_bar() == 1){%>
+		<span><img alt="loungeBar" src="../images/loungeBar.png" class="icon">라운지바</span><br>
+		<%} %>
+		<%if(facilities.getAccompany_pet() == 1){%>
+		<span><img alt="withPet" src="../images/withPet.png" class="icon">애완동물 동반 가능 여부</span><br><br>
+		<%} %>
+		
+		<%System.out.print("편의점여부"+facilities.getAccompany_pet()); %>
 	        <strong>1박 최저가</strong>&nbsp;<span style="color: gray">78,800￦</span>
-	        <button type="button" class="btn btn-outline-primary" style="float: right;" onclick="#">여기,갈래!</button>
+	        <button type="button" class="btn btn-outline-primary" style="float: right;" onclick="location.href='hotelDetailTest.jsp?no=<%=vo.getHotelNo()%>'">여기,갈래!</button>
 	        <button type="button" class="btn btn-outline-warning" style="float: right;" onclick="#">리뷰,볼래!</button><br><br>
 	      </div>
 	    </div>
 	  </div>
+	  
+
+	  
 		<%}//for %>
 	<%}//if%>
   
@@ -441,7 +322,8 @@
 
   
 </div>
-<div class="divPage">
+
+<div id="divPage">
 	<!-- 페이지 번호
 	이전 블럭으로 이동 -->
 	<%if(firstPage>1) {%>
@@ -456,7 +338,7 @@
 		<%if(currentPage!=i){%>
 		<a href="hotelList2.jsp?currentPage=<%=i%>&searchKeyword=<%=keyword%>&searchCondition=<%=condition%>">[<%=i %>]</a>
 		<%}else{%>
-		<span style="color:#4857a5; font-size:14px; font-weight:bold">[<%=i %>]</span>
+		<span style="color:#4857a5; font-size:25px; font-weight:bold">[<%=i %>]</span>
 		<%} %>
 	
 	<%}//for %>
@@ -470,4 +352,5 @@
 	<!-- 페이지번호 끝 -->
 </div>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <%@include file="/Layout/bottom.jsp" %>

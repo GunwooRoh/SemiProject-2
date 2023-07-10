@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import com.db.ConnectionPoolMgr2;
 
+
 public class facilitiesDAO {
 	private ConnectionPoolMgr2 pool;
 
@@ -37,10 +38,11 @@ public class facilitiesDAO {
 
 			//4
 			rs=ps.executeQuery();
+			
 			if(rs.next()) {
 				int conv_store = rs.getInt("conv_store");
 				int laundry_room = rs.getInt("laundry_room");
-				int acoompany_pet = rs.getInt("acoompany_pet");
+				int accompany_pet = rs.getInt("accompany_pet");
 				int parking = rs.getInt("parking");
 				int valet_parking = rs.getInt("valet_parking");
 				int breakfast = rs.getInt("breakfast");
@@ -49,7 +51,7 @@ public class facilitiesDAO {
 				
 				vo.setConv_store(conv_store);
 				vo.setLaundry_room(laundry_room);
-				vo.setAccompany_pet(acoompany_pet);
+				vo.setAccompany_pet(accompany_pet);
 				vo.setParking(valet_parking);
 				vo.setValet_parking(valet_parking);
 				vo.setBreakfast(breakfast);
