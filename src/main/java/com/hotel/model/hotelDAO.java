@@ -95,8 +95,8 @@ public class hotelDAO {
 			while(rs.next()) {
 				int hotelNo=rs.getInt("hotelNo");
 				String hotelName=rs.getString("hotelName");
-				int longitude = rs.getInt("longitude");
-				int latitude = rs.getInt("latitude");
+				double longitude = rs.getDouble("longitude");
+				double latitude = rs.getDouble("latitude");
 				String address=rs.getString("address");
 				int hotelGrade = rs.getInt("hotelGrade");
 				String hotelDetail = rs.getString("hotelDetail");
@@ -142,8 +142,8 @@ public class hotelDAO {
 			rs=ps.executeQuery();
 			if(rs.next()) {
 				String hotelName=rs.getString("hotelName");
-				int longitude = rs.getInt("longitude");
-				int latitude = rs.getInt("latitude");
+				double longitude = rs.getDouble("longitude");
+				double latitude = rs.getDouble("latitude");
 				String address=rs.getString("address");
 				int hotelGrade = rs.getInt("hotelGrade");
 				String hotelDetail = rs.getString("hotelDetail");
