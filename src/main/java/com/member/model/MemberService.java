@@ -2,8 +2,6 @@ package com.member.model;
 
 import java.sql.SQLException;
 
-
-
 /*
  jsp - dao
  jsp - service - dao
@@ -30,16 +28,6 @@ public class MemberService {
 		memberDao=new MemberDAO();
 	}
 
-	
-	public int insertMember(MemberVO vo) throws SQLException {
-		int cnt=memberDao.insertMember(vo);
-		return cnt;
-	}
-
-	public int duplicateId(String id) throws SQLException {
-		return memberDao.duplicateId(id);
-	}
-
 	public int checkLogin(String id, String pwd) throws SQLException {
 		if(id.equals("admin") && pwd.equals("admin123")) {
 			return memberDao.AdminLogin(id, pwd);
@@ -48,15 +36,15 @@ public class MemberService {
 		}
 	}
 	
-	public MemberVO selectMember(String id) throws SQLException {
-		return memberDao.selectMember(id);
-	}
-
-	public int updateMember(MemberVO vo) throws SQLException {
-		return memberDao.updateMember(vo);
+	public int insertMember(MemberVO vo) throws SQLException {
+		return memberDao.insertMember(vo);
 	}
 	
-	public int withdrawMember(String id) throws SQLException {
-		return memberDao.withdrawMember(id);
+	public int duplicateId(String id) throws SQLException {
+		return memberDao.duplicateId(id);
+	}
+	
+	public MemberVO selectMember(String id) throws SQLException {
+		return memberDao.selectMember(id);
 	}
 }
