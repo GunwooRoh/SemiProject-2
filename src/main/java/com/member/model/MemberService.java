@@ -38,6 +38,17 @@ public class MemberService {
 	
 	public int insertMember(MemberVO vo) throws SQLException {
 		return memberDao.insertMember(vo);
+
+	}
+	
+	public int duplicateId(String id) throws SQLException {
+		return memberDao.duplicateId(id);
+	}
+	
+	public MemberVO selectMember(String id) throws SQLException {
+		return memberDao.selectMember(id);
+	}
+
 	}
 	
 }
