@@ -15,6 +15,7 @@ public class reservationVO {
 		this.hotelNo = hotelNo;
 		this.booked_room_count = booked_room_count;
 	}
+	
 	public reservationVO() {
 		super();
 		// TODO Auto-generated constructor stub

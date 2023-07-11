@@ -1,8 +1,18 @@
+<%@page import="com.reservation.model.ViewRoomDAO"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.reservation.model.ViewRoomVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!doctype html>
 <%@include file="/Layout/top.jsp" %>
+
+<%@page import="oracle.net.aso.f"%>
+<%@ page import="com.review.model.reviewVO" %>
+<%@page import="java.util.List"%>
+<%@page import="com.hotel.model.hotelVO"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="com.facilities.model.facilitiesVO"%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     
@@ -88,47 +98,79 @@
 <jsp:useBean id="hotelService" class="com.hotel.model.hotelService" scope="session"></jsp:useBean>
 <jsp:useBean id="hotelVO" class="com.hotel.model.hotelVO" scope="page"></jsp:useBean>
 <jsp:setProperty property="hotelNo" name="hotelVO" />
-<jsp:useBean id="facilitiesService" class = "com.facilities.model.facilitiesService" scope = "session"></jsp:useBean>
-<jsp:useBean id="facilitiesVO" class = "com.facilities.model.facilitiesVO" scope = "page"></jsp:useBean>
-<jsp:setProperty property= "hotelNo" name = "facilitiesVO" />
+<jsp:useBean id="facilitiesService" class="com.facilities.model.facilitiesService" scope="session"></jsp:useBean>
+<jsp:useBean id="facilitiesVO" class="com.facilities.model.facilitiesVO" scope="page"></jsp:useBean>
+<jsp:setProperty property="hotelNo" name="facilitiesVO" />
+<jsp:useBean id="reviewService" class="com.review.model.reviewService" scope="session"></jsp:useBean>
+<jsp:useBean id="reviewVO" class="com.review.model.reviewVO" scope="page"></jsp:useBean>
+<jsp:useBean id="viewRoomService" class="com.reservation.model.ViewRoomService"></jsp:useBean>
 <%
+
+  //1.요청 파라미터 인코딩
+  String hotelNo = request.getParameter("hotelNo");
+  String keyword = request.getParameter("keyword");
+  String checkIn = request.getParameter("checkIn");
+  String checkOut = request.getParameter("checkOut");
+  String people = request.getParameter("people");
+  
+  if(keyword==null) keyword="";
+  if(checkIn==null) checkIn="";
+  if(checkOut==null) checkOut="";
+  if(people==null) people="";
 	
-  	String hotelNo = request.getParameter("no");
-    hotelVO = hotelService.selectByhotelNo(Integer.parseInt(hotelNo));
-    facilitiesVO = facilitiesService.selectByhotelNo(Integer.parseInt(hotelNo));
-    double latitude = hotelVO.getLatitude();
-    double longitude = hotelVO.getLongitude();
+  
+  hotelVO = hotelService.selectByhotelNo(Integer.parseInt(hotelNo));
+  facilitiesVO = facilitiesService.selectByhotelNo(Integer.parseInt(hotelNo));
+  double latitude = hotelVO.getLatitude();
+  double longitude = hotelVO.getLongitude();
+  
+  //2. db작업
+  
+  List<ViewRoomVO> list = null;
+  try{
+	list = viewRoomService.selectByHotelNo(Integer.parseInt(hotelNo));
+	
+  }catch(SQLException e){
+	  e.printStackTrace();
+  }
+  
+  
+	DecimalFormat df = new DecimalFormat("#,###");
+  
 %>
+
 
 <nav id="nav1">
 	<div class="search_input rooms_box">
-		<div>
-			<a href="#">
-				<div>위치</div> <input type="text" placeholder="어디로 여행가세요?">
-			</a>
-		</div>
-		
-		<div class="flight-search-date-start">
-		<label style="margin-right: 70px;">체크 인</label>
-	   	 <input type="date" name="checkin">
-	    </div>
-		
-	     <div class="flight-search-date-end">
-	     <label style="margin-right: 60px;">체크 아웃</label>
-	    <input type="date" name="checkout">
-	    </div>
-
-		<div>
-			<a href="#">
-				<div>인원</div> <input type="number" placeholder="게스트 추가">
-			</a>
-		</div>
-		<div>
-			<button class="search_button" style="text-align: center;">
-				<img src="../images/search.png" class="magnifying_glass">
-			</button>
-		</div>
-	</div> 
+			<div>
+				<a href="#">
+					<label style="margin-right: 145px;">어디,갈래?</label><br>
+					<input type="text" name="keyword" placeholder="어디로 여행가세요?" value="<%=keyword %>">
+				</a>
+			</div>
+			
+			<div class="flight-search-date-start">
+			<label style="margin-right: 70px;">체크 인</label>
+		   	 <input type="date" name="checkIn" id="checkIn" value="<%=checkIn %>">
+		    </div>
+			
+		     <div class="flight-search-date-end">
+		     <label style="margin-right: 60px;">체크 아웃</label>
+		    <input type="date" name="checkOut" id="checkOut" value="<%=checkOut %>">
+		    </div>
+	
+			<div>
+				<a href="#">
+					<label>인원</label><br> 
+					<input type="number" name="people" placeholder="게스트 추가" value="<%=people %>">
+				</a>
+			</div>
+			<div>
+				<button class="search_button" style="text-align: center;">
+					<img src="../images/search.png" class="magnifying_glass">
+				</button>
+			</div>
+		</div> 
 	<!-- serach input room -->
 </nav>
 <main class="container">
@@ -138,25 +180,50 @@
       <br><br><br><br><br>
     </div>
   </div>
-
-  <div class="row mb-2">
-    <div class="col-md-6">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-primary">여기 가격쓸꺼임 </strong>
-          <h3 class="mb-0">여기 객실유형임 </h3>
-          <div class="mb-1 text-muted">여기잔여객실뜨면베스트아님말고</div>
-          <p class="card-text mb-auto">여기 침대, 무선인터넷,주방,에어컨여부</p>
-          
-          <a href="#" class="stretched-link" style="color: #4857a5;">예약링크이긴함</a>
-        </div>
-        <div class="col-auto d-none d-lg-block">
-          	<img src="<%=request.getContextPath() %>/images/sub1_<%=hotelVO.getImage()%>" style="width: 250px; height: 200px;">
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-md-6">
+	<%for(int i=0; i<list.size(); i++){
+		if(list==null || list.isEmpty()){%>
+		   <div class="col-md-6">
+	      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+	        <div class="col p-4 d-flex flex-column position-static">
+	          <strong class="d-inline-block mb-2 text-primary">여기 가격쓸꺼임 </strong>
+	          <h3 class="mb-0">여기 객실유형임 </h3>
+	          <div class="mb-1 text-muted">여기잔여객실뜨면베스트아님말고</div>
+	          <p class="card-text mb-auto">여기 침대, 무선인터넷,주방,에어컨여부</p>
+	          
+	          <a href="#" class="stretched-link" style="color: #4857a5;">예약링크이긴함</a>
+	        </div>
+	        <div class="col-auto d-none d-lg-block">
+	          	<img src="<%=request.getContextPath() %>/images/sub2_<%=hotelVO.getImage()%>" style="width: 250px; height: 200px;">
+	        </div>
+	      </div>
+	    </div> 
+			
+		<%}else{
+			ViewRoomVO vo = list.get(i);%>
+		  <div class="row mb-2">
+		    <div class="col-md-6">
+		      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+		        <div class="col p-4 d-flex flex-column position-static">
+		          <strong class="d-inline-block mb-2 text-primary"><%=df.format(vo.getPrice_per_day())%>￦</strong>
+		          <h3 class="mb-0"><%=vo.getRoom_type() %> </h3>
+		          <div class="mb-1 text-muted">여기잔여객실뜨면베스트아님말고</div>
+		          <p class="card-text mb-auto">
+		          침대개수 : <%=vo.getBed() %>
+		          와이파이 : <%=vo.getWifi() %>
+		          주방 : <%=vo.getKitchen() %>
+		          에어컨 : <%=vo.getAc()%>
+		          </p>
+		          
+		          <a href="#" class="stretched-link" style="color: #4857a5;">예약링크이긴함</a>
+		        </div>
+		        <div class="col-auto d-none d-lg-block">
+		          	<img src="<%=request.getContextPath() %>/images/sub1_<%=hotelVO.getImage()%>" style="width: 250px; height: 200px;">
+		        </div>
+		      </div>
+		    </div>
+	    <%} %>
+    <%} %>
+    <%-- <div class="col-md-6">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
           <strong class="d-inline-block mb-2 text-primary">여기 가격쓸꺼임 </strong>
@@ -170,7 +237,7 @@
           	<img src="<%=request.getContextPath() %>/images/sub2_<%=hotelVO.getImage()%>" style="width: 250px; height: 200px;">
         </div>
       </div>
-    </div>
+    </div> --%>
         
       </div>
     </div>
@@ -255,7 +322,23 @@
 
         <div class="p-4">
           <h4 class="fst-italic">호텔 MAP</h4>
-          	<script type="text/javascript"
+          
+          	<div id="map" style="width: 500px; height: 400px;"></div>
+		<script type="text/javascript"
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77b09882911ce4058ee98aa8532ed409"></script>
+		<script>
+		var container = document.getElementById('map');
+		var hotelLongitude = <%=hotelVO.getLongitude()%>;
+		var hotelLatitude = <%=hotelVO.getLatitude()%>;
+		
+		var options = {
+			center: new kakao.maps.LatLng(hotelLongitude, hotelLatitude),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+		</script>
+  <%--         	<script type="text/javascript"
          		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77b09882911ce4058ee98aa8532ed409">
     		</script>
       
@@ -263,8 +346,8 @@
 
 		      <script>
 		      var container = document.getElementById('map');
-		<%--       var hotelLongitude = <%= hotelVO.longitude %>;
-		      var hotelLatitude = <%= hotelVO.latitude %>; --%>
+		      var hotelLongitude = <%= hotelVO.longitude %>;
+		      var hotelLatitude = <%= hotelVO.latitude %>;
 		      
 		      var options = {
 		         center: new kakao.maps.LatLng(33.450701, 126.570667),
@@ -272,7 +355,7 @@
 		      };
 		
 		      var map = new kakao.maps.Map(container, options);
-		      </script>
+		      </script> --%>
         </div>
 
       </div>

@@ -14,8 +14,8 @@ public class hotelService {
 		return hotelDAO.insertBoard(vo);
 	}
 
-	public List<hotelVO> selectAll(String keyword, String condition) throws SQLException {
-		return hotelDAO.selectAll(keyword, condition);
+	public List<hotelVO> selectAll(String keyword) throws SQLException {
+		return hotelDAO.selectAll(keyword);
 	}
 
 	public int hashCode() {

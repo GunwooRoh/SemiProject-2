@@ -58,17 +58,8 @@ public class hotelDAO {
 	 * @return
 	 * @throws SQLException 
 	 */
-	public List<hotelVO> selectAll(String keyword, String condition) throws SQLException{
-		/*
-		 	select * from board
-			where name like '%길%';
-			
-			select * from board
-			where title like '%안%';
-			
-			select * from board
-			where content like '%가%';
-		*/
+	public List<hotelVO> selectAll(String keyword) throws SQLException{
+		
 		Connection con=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -81,13 +72,15 @@ public class hotelDAO {
 			String sql="select * from hotel ";
 			//검색의 경우 where 조건절 추가
 			if(keyword != null && !keyword.isEmpty()) {
-				sql+=" where "+condition+" like '%' || ? || '%'";
+				sql+="where hotelname like '%' || ? || '%' "
+					+ "or address like '%' || ? || '%' ";
 			}
 			sql += " order by hotelNo desc";
 			ps=con.prepareStatement(sql);
 
 			if(keyword != null && !keyword.isEmpty()) {
 				ps.setString(1, keyword);
+				ps.setString(2, keyword);
 			}
 			
 			//4
@@ -109,7 +102,7 @@ public class hotelDAO {
 				list.add(vo);
 			}
 			System.out.println("글 전체 조회 결과, list.size="+list.size()
-				+", 매개변수 keyword="+keyword+", condition="+condition);
+				+", 매개변수 keyword="+keyword);
 
 			return list;
 		}finally {

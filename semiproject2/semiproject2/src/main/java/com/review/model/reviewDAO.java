@@ -105,9 +105,9 @@ public class reviewDAO {
 			pool.dbClose(ps, con);
 		}
 	}
-
+	/*
 	//호텔별 리뷰 조회
-	public List<reviewVO> selectByhotelNo(String keyword, String condition) throws SQLException{
+	public List<reviewVO> selectByhotelNo(String keyword) throws SQLException{
 		Connection con=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -153,7 +153,7 @@ public class reviewDAO {
 			pool.dbClose(rs, ps, con);
 		}
 	}
-
+	 	*/
 	//회원별 작성 리뷰 조회
 	public List<reviewVO> selectByaccNo(String keyword, String condition) throws SQLException{
 		Connection con=null;

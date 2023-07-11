@@ -12,7 +12,6 @@ public class reservation_detailVO {
 	
 	public reservation_detailVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	

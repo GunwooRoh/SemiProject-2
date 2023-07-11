@@ -25,10 +25,10 @@ public class reviewService {
 	public int hashCode() {
 		return reviewDAO.hashCode();
 	}
-
+	/*
 	public List<reviewVO> selectByhotelNo(String keyword, String condition) throws SQLException {
 		return reviewDAO.selectByhotelNo(keyword, condition);
-	}
+	}*/
 
 	public List<reviewVO> selectByaccNo(String keyword, String condition) throws SQLException {
 		return reviewDAO.selectByaccNo(keyword, condition);
