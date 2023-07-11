@@ -6,8 +6,6 @@ public class reservationVO {
 	private int hotelNo;
 	private int booked_room_count;
 	
-	
-	
 	public reservationVO(int reCode, int accNo, int hotelNo, int booked_room_count) {
 		super();
 		this.reCode = reCode;
