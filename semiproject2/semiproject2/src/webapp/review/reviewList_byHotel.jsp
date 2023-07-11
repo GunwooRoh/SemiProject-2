@@ -1,3 +1,5 @@
+<%@page import="com.review.model.reviewVO"%>
+<%@page import="com.review.model.reviewService"%>
 <%@page import="com.notice.model.Utility"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.notice.model.NoticeVO"%>
@@ -78,7 +80,9 @@ td a {
 	
 	request.setCharacterEncoding("utf-8");
 	String keyword = request.getParameter("searchKeyword");
+	String condition = request.getParameter("searchCondition");
 	if(keyword == null) keyword="";
+	if(condition == null) condition = "";
 	/* String selectedOption = request.getParameter("selectOption");
 	String selOption = "";
 	
@@ -99,10 +103,11 @@ td a {
 	}//바깥 if
 	 */
 	//2.DB작업
-	NoticeService noticeSer = new NoticeService();
-	List<NoticeVO> list = null;
+	reviewService reviewSer = new reviewService();
+	List<reviewVO> list = null;
+	
 	try{
-		list = noticeSer.selectAll(keyword);
+		list = reviewSer.selectByhotelNo(keyword, condition);
 		
 	}catch(SQLException e){
 		e.printStackTrace();
@@ -142,9 +147,21 @@ td a {
 	<%} %>
 </div>
 <div id = "ann_box">
-	<strong>공지사항</strong> 
+	<strong>호텔 리뷰</strong> 
 	 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 	 <form name = "search" method="post" action = "noticeList.jsp">
+	 <select name="searchCondition">
+            <option value="title" 
+            	<%if("title".equals(condition)){%>
+            		selected="selected"
+            	<% }%>            	
+            >호텔</option>
+            <option value="content"
+            	<%if("content".equals(condition)){%>
+            		selected="selected"
+            	<% }%> 
+            >내용</option>
+        </select>  
 		 <div class="input-group mb-3">
 	 		 <input type="text" class="form-control" name="searchKeyword" placeholder="검색어를 입력하세요." aria-label="Recipient's username" aria-describedby="button-addon2" value= "<%=keyword %>">
 	  		<input type="submit" class="btn btn-outline-secondary" type="button" id="button-addon2" value = "찾기">
@@ -154,10 +171,9 @@ td a {
   		<thead>
   			<tr>
   				<th>번호</th>
-  				<th>제목</th>
-  				<th>작성자</th>
+  				<th>별점</th>
+  				<th style = "width :70%">내용</th>
   				<th>작성일</th>
-  				<th>조회수</th>
   			</tr>
   		</thead>
   		<tbody>
@@ -165,28 +181,21 @@ td a {
   		<%if(list==null || list.isEmpty()){ %>
   			<tr>
   				<td rowspan = "3" colspan = "6">
-  					공지사항이 없습니다.
+  					등록된 리뷰가 없습니다.
   				</td>
   			</tr>
   		<%}else{ 
   			for(int i=0; i<pageSize; i++){
   				if(num<1) break;
   				
-  				NoticeVO vo = list.get(curPos++);
+  				reviewVO vo = list.get(curPos++);
   				num--;
   			%>
   			<tr>
-	  			<td><%= vo.getAnnNo() %></td>
-	  			<td>
-	  				<%=Utility.displayFile(vo.getFileName()) %>
-	  				<a href = "countUpdate.jsp?annNo=<%=vo.getAnnNo()%>">
-  					<%=Utility.cutString(vo.getAnnTitle(), 30) %>
-  					</a>
-  					<%=Utility.displayNew(vo.getRegdate()) %>
-  				</td>
-	  			<td>관리자</td>
+	  			<td><%= vo.getReviewNo() %></td>
+	  			<td><%= vo.getScore() %></td>
+	  			<td><%=vo.getContent() %></td>
 	  			<td><%= sdf.format(vo.getRegdate()) %></td>
-	  			<td><%=vo.getReadCount() %></td>
   			</tr>
   			<%}//for
   			}//if %>
@@ -200,7 +209,7 @@ td a {
 	<!--  이전 블럭으로 이동 -->
 	<%if(firstPage>1){ %>
     <li class="page-item">
-      <a class="page-link" href="noticeList.jsp?currentPage=<%=firstPage-1%>" aria-label="Previous">
+      <a class="page-link" href="reviewList_byHotel.jsp?currentPage=<%=firstPage-1%>" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
@@ -208,13 +217,13 @@ td a {
     <%for(int i=firstPage;i<=lastPage;i++){
     	if(i>totalPage) break;%>
 	    <li class="page-item">
-	    	<a class="page-link" href="noticeList.jsp?currentPage=<%=i%>&searchkeyword=<%=keyword%>"><%=i %></a>
+	    	<a class="page-link" href="reviewList_byHotel.jsp?currentPage=<%=i%>&searchkeyword=<%=keyword%>"><%=i %></a>
 	    </li>
     <%}//for %>
     <!-- 다음 블럭으로 이동 -->
     <% if(lastPage<totalPage){ %>
     <li class="page-item">
-      <a class="page-link" href="noticeList.jsp?currentPage=<%=lastPage+1 %>" aria-label="Next">
+      <a class="page-link" href="reviewList_byHotel.jsp?currentPage=<%=lastPage+1 %>" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
@@ -224,9 +233,7 @@ td a {
 </div>
 
 
-<div id = "btn">
-<a href = "noticeWrite.jsp">글쓰기</a>
-</div>
+
 </div>
 </body>
 <%@ include file = "../form/bottom.jsp" %>

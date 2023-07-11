@@ -8,29 +8,35 @@ public class NoticeVO {
 	private String annContent;
 	private Timestamp regdate;
 	private int adminNo;
+	private int readCount;
 	
 	private String fileName;
 	private String originFileName;
 	private long fileSize;
-	private int readCount;
+	private int downCount;
 	
 	public NoticeVO() {
 		super();
 	}
 
-	public NoticeVO(int annNo, String annTitle, String annContent, Timestamp regdate, int adminNo, String fileName,
-			String originFileName, long fileSize, int readCount) {
+	
+
+	public NoticeVO(int annNo, String annTitle, String annContent, Timestamp regdate, int adminNo, int readCount,
+			String fileName, String originFileName, long fileSize, int downCount) {
 		super();
 		this.annNo = annNo;
 		this.annTitle = annTitle;
 		this.annContent = annContent;
 		this.regdate = regdate;
 		this.adminNo = adminNo;
+		this.readCount = readCount;
 		this.fileName = fileName;
 		this.originFileName = originFileName;
 		this.fileSize = fileSize;
-		this.readCount = readCount;
+		this.downCount = downCount;
 	}
+
+
 
 	public int getAnnNo() {
 		return annNo;
@@ -103,13 +109,30 @@ public class NoticeVO {
 	public void setReadCount(int readCount) {
 		this.readCount = readCount;
 	}
+	
+	
+
+	public int getDownCount() {
+		return downCount;
+	}
+
+
+
+	public void setDownCount(int downCount) {
+		this.downCount = downCount;
+	}
+
+
 
 	@Override
 	public String toString() {
 		return "NoticeVO [annNo=" + annNo + ", annTitle=" + annTitle + ", annContent=" + annContent + ", regdate="
-				+ regdate + ", adminNo=" + adminNo + ", fileName=" + fileName + ", originFileName=" + originFileName
-				+ ", fileSize=" + fileSize + ", readCount=" + readCount + "]";
+				+ regdate + ", adminNo=" + adminNo + ", readCount=" + readCount + ", fileName=" + fileName
+				+ ", originFileName=" + originFileName + ", fileSize=" + fileSize + ", downCount=" + downCount + "]";
 	}
+
+
+
 	
 	
 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../form/top.jsp"%>
+<%@ include file="../form/header.jsp"%>
 <!-- <link rel="stylesheet" type="text/css" href="/css/noticeWriteCss.css" />  -->
 <title>공지사항 등록</title>
 <link
@@ -106,6 +106,7 @@ strong {
 				<label for="exampleFormControlTextarea1" class="form-label">첨부파일 :</label>
 				<input type="file" id = "upfile" name = "upfile"/>
 			</div>
+			
 			<div class="mb-5">
 				<input type="submit" id="btn1" value = "등록" onclick=submitContents()>
 				<input type="reset"  id="btn2" value = "취소" onclick="noticeList.jsp">

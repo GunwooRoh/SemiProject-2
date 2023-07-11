@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../form/top.jsp"%>
+<%@ include file="../form/header.jsp"%>
 <style type="text/css">
 .mainCookie{
 	text-align: center;

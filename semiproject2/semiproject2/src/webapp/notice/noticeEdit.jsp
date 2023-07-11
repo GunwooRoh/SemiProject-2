@@ -1,9 +1,10 @@
+<%@page import="com.notice.model.Utility"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="com.notice.model.NoticeVO"%>
 <%@page import="com.notice.model.NoticeService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../form/top.jsp"%>
+<%@ include file="../form/header.jsp"%>
 <!-- <link rel="stylesheet" type="text/css" href="/css/noticeWriteCss.css" />  -->
 <title>공지사항 수정</title>
 <link
@@ -75,14 +76,17 @@ strong {
 #foot{
 	clear:both;
 }
+
+div#file {
+    text-align: center;
+    margin-bottom: 5px;
+}
 </style>
 <body>
 <%
 	//noticeDetail.jsp?annNo=?에서 수정 누르면 GET 방식으로 이동
 	//1.
 	String annNo = request.getParameter("annNo");
-	String fileName = request.getParameter("fileName");
-	if(fileName==null) fileName = "";
 	if(annNo==null || annNo.isEmpty()){%>
 		<script type="text/javascript">
 			alert("잘못된 URL입니다.");
@@ -99,6 +103,8 @@ strong {
 		e.printStackTrace();
 	}
 	
+	String fileName=vo.getFileName();
+	if(fileName==null) fileName = "";
 %>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
@@ -107,7 +113,8 @@ strong {
 	<script type="text/javascript" src = "../tool/naver-smarteditor2-ca95d21/demo/js/service/HuskyEZCreator.js" charset = "utf-8"></script>
 	<div class="box">
 		<form name="frm" method="post" action="noticeEdit_ok.jsp" enctype = "multipart/form-data" >
-			<strong>공지사항</strong> 
+			<strong>공지사항</strong><br> 
+			<input type = "hidden" class = "rofm-control" name = "annNo" value = "<%=vo.getAnnNo()%>">
 			
 			<!--  <select class="form-select" aria-label="Default select example" name="selectOption">
 			  <option selected>말머리 선택</option>
@@ -128,16 +135,19 @@ strong {
 				<textarea class="form-control" id="exampleFormControlTextarea1" name="annContent"
 					rows="30" ><%=vo.getAnnContent() %></textarea>
 			</div>
+			<div id = "file">
+				<span >첨부파일 목록</span>
+				<% if(fileName!=null && !fileName.isEmpty()){ %>
+					<span>
+					<%=Utility.getFileInfo(vo.getOriginFileName(), vo.getFileSize()) %>
+					</span>
+					<span style = "color:red; font-weight:bold;">
+					첨부파일을 새로 저장할 경우 기존 파일은 삭제됩니다.</span>
+				<%} %>
+			</div>
 			<div class="mb-4">
 				<label for="exampleFormControlTextarea1" class="form-label">첨부파일 :</label>
 				<input type="file" id = "upfile" name = "upfile"/>
-			</div>
-			<div>
-				<span>첨부파일 목록</span>
-				<% if(fileName!=null && !fileName.isEmpty()){ %>
-					<span>
-					첨부파일을 새로 저장할 경우 기존 파일은 삭제됩니다.</span>
-				<%} %>
 			</div>
 			<div class="mb-5">
 				<input type="submit" id="btn1" value = "수정" onclick=submitContents()>
