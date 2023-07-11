@@ -10,8 +10,7 @@
 <%
 	//로그인이 되지 않은 경우 에러 처리
 	String l_id=(String)session.getAttribute("id");
-	String ctxPath = request.getContextPath(); //=> /herbmall
-					//request.getContextPath(); 암기
+	String ctxPath = request.getContextPath(); 
 	
 	//로그인 안된 경우
 	if(l_id==null || l_id.isEmpty()){ %>

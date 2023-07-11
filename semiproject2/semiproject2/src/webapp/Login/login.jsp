@@ -1,23 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../form/top.jsp" %>
-
-<%
-	//쿠키 읽어오기
-	String ck_value = "";
-	Cookie[] ckArr = request.getCookies();
-	if (ckArr != null) {
-		for (int i = 0; i < ckArr.length; i++) {
-			String ck_name = ckArr[i].getName();
-			if (ck_name.equals("ck_id")) {
-		ck_value = ckArr[i].getValue();
-		break;
-			}
-	
-		} //for
-	}
-%>
-
+<%-- <%@ include file = "../mainpage/mainTop.jsp" %> --%>
+<jsp:useBean id="memberVO" class="com.member.model.MemberVO" scope="session"></jsp:useBean>
+<script type="text/javascript" src="../js/jquery-3.7.0.min.js"></script>
  <script type="text/javascript">
 	
 		function login() {
@@ -48,11 +33,9 @@
 				}
 				
 			});
-	
 		});
-
-	  	
-  
+			
+			
 </script>
 
 <style>
@@ -144,12 +127,13 @@
 	font-weight: bold;
 }
 
-input#bottomBtn {
+input#button {
 	border-radius: 1rem;
 	font-weight: 700;
 	box-shadow: inset 0 0 0 1px #5D6DBE;
 	margin-bottom: 40px;
 }
+
 
 #submit:hover { /*로그인 버튼 오버*/
 	background-color: white;
@@ -210,9 +194,6 @@ input#bottomBtn {
 				<div style="clear: both; float: left;" id="leftText"></div>
 				<div style="float: left;" id="securityText">
 					<input type="checkbox" name="chkSave" id="chkSave"> 아이디 저장
-					<%if(ck_value!=null && !ck_value.isEmpty()){ %>
-            		checked="checked"
-            	<%}%>
 				</div>
 				<div id="main2Right">
 					<input type="submit" id="submit" value="회원 로그인" />
@@ -220,13 +201,13 @@ input#bottomBtn {
 			</div>
 			<div id="mainLine" style="clear: both;"></div>
 			<div id="main">
-				<input id="bottomBtn" type="button" value="아이디 찾기" /> 
-				<input id="bottomBtn" type="button" value="비밀번호 찾기" /> 
-				<input id="bottomBtn" type="button" value="회원가입" />
+				<a href="#" onclick="window.open('../Login/find_id.jsp','tistory','width=200, height=100, center')"><input id="bottomBtn" type="button" value="아이디 찾기"/></a>
+				<a href="#" onclick="window.open('../Login/find_pwd.jsp','tistory','width=200, height=100')"><input id="bottomBtn" type="button" value="비밀번호 찾기" /></a> 
+				<a href="../signup/signup.jsp"><input id="bottomBtn" type="button" value="회원가입" /></a>
 			</div>
 		</div>
 		</fieldset>
 	</form>
 </article>
 </selection>
-<%@ include file="../form/bottom.jsp" %>
+<%@ include file = "../form/bottom.jsp" %>

@@ -41,6 +41,7 @@
 		if(cnt>0){
 			msg="회원가입되었습니다.";
 			url="../mypage/profile.jsp";
+	System.out.println("집 갈래~~~~~~");
 		}
 	}catch(SQLException e){
       	e.printStackTrace();
@@ -50,6 +51,6 @@
 	request.setAttribute("url", url);
 	
 %>
-<jsp:forward page="../message.jsp"></jsp:forward>
+<jsp:forward page="message.jsp"></jsp:forward>
 </body>
 </html>

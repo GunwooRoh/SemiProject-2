@@ -43,7 +43,7 @@
 			}
 			
 			msg=id+"님 로그인 되었습니다.";
-			url="../index.jsp";
+			url="../mainpage/mainpage.jsp";
 		}else if(result==MemberService.DISAGREE_PWD){
 			msg="비밀번호가 일치하지 않습니다.";
 		}else if(result==MemberService.NONE_ID){
@@ -58,7 +58,7 @@
 		request.setAttribute("msg", msg);
 		request.setAttribute("url", url);
 %>
-<jsp:forward page="message.jsp"></jsp:forward>
+<jsp:forward page="../mainpage/mainpage.jsp"></jsp:forward>
 <!-- forward: request 공유  -->
 </body>
 </html>

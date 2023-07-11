@@ -1,3 +1,5 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="com.member.model.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -51,13 +53,57 @@
 	input#inputCity {
 		width: 685px;
 	}
+	
+	form.row.g-3 {
+    width: 700px;
+    margin-left: 15px;
+}
 
 </style>
 <script type="text/javascript" src="../js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
 <script type="text/javascript">
-
 </script>
+<style>
+
+div#wrap_profile {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 900px;
+    scale: 0.85;
+}
+
+input#inputCity {
+    width: 385px;
+	}
+	
+form.row.g-3 {
+    width: 700px;
+    margin-left: 50px;
+}
+</style>
+<jsp:useBean id="memService" class="com.member.model.MemberService" scope="session"></jsp:useBean>
+<%
+	//1
+	String id = (String)session.getAttribute("id");
+	
+	//2
+	MemberVO vo = null;
+	try{
+	    vo = memService.selectMember(id);
+	}catch(SQLException e){
+	   e.printStackTrace();
+	}
+	
+	//3
+	String pwd = vo.getPwd();
+	String name = vo.getName();
+	String card = vo.getCard();
+	String email = vo.getEmail();
+	String tel = vo.getTel();
+%>
 
 <selection id="profile">
 	<!-- 상단 띠 이미지 영역-->
@@ -69,17 +115,18 @@
 
 		<!-- 라인 이미지 영역-->
 		<div id="topLine" class="top_Line"
-			style="background:url(<%=request.getContextPath()%>/images/line6.jpg)  repeat-x;font-size:7px">
+			style="background:url(<%=request.getContextPath()%>/images/profile.png)  repeat-x;font-size:7px">
 			&nbsp;</div>
 
 		<!-- infor -->
 		<div id="infor">
-			<div class="accordion" id="accordionExample">
+			<div class="accordion" id="accordion">
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingOne">
-						<button class="accordion-button" type="button"
-							data-bs-toggle="collapse" data-bs-target="#collapseOne"
-							aria-expanded="true" aria-controls="collapseOne">
+						<button class="accordion-button" type="button" data-bs-toggle="collapse" 
+						data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          				
+          				
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-airplane-fill" viewBox="0 0 16 16">
 							  <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849Z"/>
 							</svg>
@@ -152,6 +199,7 @@
 						</div>
 					</div>
 				</div>
+				<h2 class="accordion-header" id="headingone">
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingTwo">
 						<button class="accordion-button collapsed" type="button"
