@@ -13,6 +13,8 @@ public class MemberVO {
 	private int point;
 	private Timestamp regdate;
 	private Timestamp outdate;
+	private String card;
+	
 	
 	public MemberVO() {
 		super();
@@ -20,7 +22,7 @@ public class MemberVO {
 
 	
 	public MemberVO(int accno, String id, String name, String pwd, String age, String email, String tel, int point,
-			Timestamp regdate, Timestamp outdate) {
+			Timestamp regdate, Timestamp outdate, String card) {
 		super();
 		this.accno = accno;
 		this.id = id;
@@ -32,9 +34,10 @@ public class MemberVO {
 		this.point = point;
 		this.regdate = regdate;
 		this.outdate = outdate;
+		this.card	= card;
 	}
 
-
+	
 
 	public int getAccno() {
 		return accno;
@@ -115,12 +118,20 @@ public class MemberVO {
 	public void setOutdate(Timestamp outdate) {
 		this.outdate = outdate;
 	}
+	
+	public String getCard() {
+		return card;
+	}
+
+	public void setCard(String card) {
+		this.card = card;
+	}
 
 	@Override
 	public String toString() {
 		return "MemberVO [accno=" + accno + ", id=" + id + ", name=" + name + ", pwd=" + pwd + ", age=" + age
 				+ ", email=" + email + ", tel=" + tel + ", point=" + point + ", regdate=" + regdate + ", outdate="
-				+ outdate + "]";
+				+ outdate + ", card=" + card + "]";
 	}
 
 	
