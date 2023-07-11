@@ -161,9 +161,9 @@ public class MemberDAO {
 			if(rs.next()) {
 				int count=rs.getInt(1);
 				if(count>0) {  //이미 존재-> 사용불가
-					//result=MemberService.UNUSABLE_ID;
+					result=MemberService.UNUSABLE_ID;
 				}else { //해당 아이디는 없다 - 사용가능
-					//result=MemberService.USABLE_ID;					
+					result=MemberService.USABLE_ID;					
 				}
 			}
 			System.out.println("아이디 중복확인 결과, result="+result

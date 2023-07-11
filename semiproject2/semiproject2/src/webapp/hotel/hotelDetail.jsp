@@ -94,16 +94,19 @@ setInterval(nextSlide, 3000);
 
 		<h2>부대시설</h2>
 
-		<div id="map" style="width: 500px; height: 400px;"></div>
 		<script type="text/javascript"
-			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77b09882911ce4058ee98aa8532ed409"></script>
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77b09882911ce4058ee98aa8532ed409">
+		</script>
+		
+		<div id="map" style="width: 500px; height: 400px;"></div>
+
 		<script>
 		var container = document.getElementById('map');
 		var hotelLongitude = <%= hotelVO.longitude %>;
 		var hotelLatitude = <%= hotelVO.latitude %>;
 		
 		var options = {
-			center: new kakao.maps.LatLng(latitude, longitude),
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
 			level: 3
 		};
 
