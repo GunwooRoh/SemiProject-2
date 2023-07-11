@@ -96,6 +96,52 @@ public class reservationDAO {
 			pool.dbClose(rs, ps, con);
 		}
 	}
+	
+	//회원별 예약 정보 조회
+	public List<reservationVO> selectByaccNo(String keyword, String condition) throws SQLException{
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+
+		List<reservationVO> list = new ArrayList<>();
+		try {
+			//1,2
+			con=pool.getConnection();
+
+			String sql="select * from reservation ";
+			//검색의 경우 where 조건절 추가
+			if(keyword != null && !keyword.isEmpty()) {
+				sql+=" where "+condition+" like '%' || ? || '%'";
+			}
+			sql += " order by accNo desc";
+			ps=con.prepareStatement(sql);
+
+			if(keyword != null && !keyword.isEmpty()) {
+				ps.setString(1, keyword);
+			}
+			
+			//4
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				int reCode=rs.getInt("reCode");
+				int accNo = rs.getInt("accNo");
+				int hotelNo=rs.getInt("hotelNo");
+				int booked_room_count = rs.getInt("booked_room_count");
+						
+				reservationVO vo
+				=new reservationVO(reCode, accNo, hotelNo, booked_room_count);
+
+				list.add(vo);
+			}
+			System.out.println("회원별 예약정보 조회 결과, list.size="+list.size()
+				+", 매개변수 keyword="+keyword+", condition="+condition);
+
+			return list;
+		}finally {
+			pool.dbClose(rs, ps, con);
+		}
+	}
+	
 
 	/**
 	 * 예약 정보 수정 메서드

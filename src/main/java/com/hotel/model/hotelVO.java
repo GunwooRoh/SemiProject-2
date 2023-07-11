@@ -3,8 +3,8 @@ package com.hotel.model;
 public class hotelVO {
 	private int hotelNo;
 	private String hotelName;
-	private int longitude;
-	private int latitude;
+	public double longitude;
+	public double latitude;
 	private String address;
 	private int hotelGrade;
 	private String hotelDetail;
@@ -16,7 +16,7 @@ public class hotelVO {
 		super();
 	}
 	
-	public hotelVO(int hotelNo, String hotelName, int longitude, int latitude, String address, int hotelGrade, String hotelDetail, int adminNo, String image) {
+	public hotelVO(int hotelNo, String hotelName, double longitude, double latitude, String address, int hotelGrade, String hotelDetail, int adminNo, String image) {
 		super();
 		this.hotelNo = hotelNo;
 		this.hotelName = hotelName;
@@ -45,19 +45,19 @@ public class hotelVO {
 		this.hotelName = hotelName;
 	}
 
-	public int getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(int longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
-	public int getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(int latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 

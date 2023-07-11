@@ -35,8 +35,8 @@ public class hotelDAO {
 					+ " values(hotel_seq.nextval, ?,?,?,?,?,?,?,?)";
 			ps=con.prepareStatement(sql);
 			ps.setString(1, vo.getHotelName());
-			ps.setInt(2, vo.getLongitude());
-			ps.setInt(3, vo.getLatitude());
+			ps.setDouble(2, vo.getLongitude());
+			ps.setDouble(3, vo.getLatitude());
 			ps.setString(4, vo.getAddress());
 			ps.setInt(5, vo.getHotelGrade());
 			ps.setString(6, vo.getHotelDetail());
@@ -95,13 +95,13 @@ public class hotelDAO {
 			while(rs.next()) {
 				int hotelNo=rs.getInt("hotelNo");
 				String hotelName=rs.getString("hotelName");
-				int longitude = rs.getInt("longitude");
-				int latitude = rs.getInt("latitude");
+				double longitude = rs.getDouble("longitude");
+				double latitude = rs.getDouble("latitude");
 				String address=rs.getString("address");
 				int hotelGrade = rs.getInt("hotelGrade");
 				String hotelDetail = rs.getString("hotelDetail");
 				int adminNo = rs.getInt("adminNo");
-				String image = rs.getString("image");
+				String image = rs.getString("main_image");
 
 				hotelVO vo
 				=new hotelVO(hotelNo, hotelName, longitude, latitude, address, hotelGrade, hotelDetail, adminNo, image);
@@ -118,7 +118,7 @@ public class hotelDAO {
 	}
 
 	/**
-	 * 글 상세보기 메서드
+	 * 호텔정보 상세보기 메서드
 	 * @param no
 	 * @return
 	 * @throws SQLException 
@@ -142,13 +142,13 @@ public class hotelDAO {
 			rs=ps.executeQuery();
 			if(rs.next()) {
 				String hotelName=rs.getString("hotelName");
-				int longitude = rs.getInt("longitude");
-				int latitude = rs.getInt("latitude");
+				double longitude = rs.getDouble("longitude");
+				double latitude = rs.getDouble("latitude");
 				String address=rs.getString("address");
 				int hotelGrade = rs.getInt("hotelGrade");
 				String hotelDetail = rs.getString("hotelDetail");
 				int adminNo = rs.getInt("adminNo");
-				String image = rs.getString("image");
+				String image = rs.getString("main_image");
 				
 				vo.setHotelName(hotelName);
 				vo.setLongitude(longitude);
@@ -188,8 +188,8 @@ public class hotelDAO {
 			ps = con.prepareStatement(sql);
 
 			ps.setString(1, vo.getHotelName());
-			ps.setInt(2, vo.getLongitude());
-			ps.setInt(3, vo.getLatitude());
+			ps.setDouble(2, vo.getLongitude());
+			ps.setDouble(3, vo.getLatitude());
 			ps.setString(4, vo.getAddress());
 			ps.setInt(5, vo.getHotelGrade());
 			ps.setString(6, vo.getHotelDetail());

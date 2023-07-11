@@ -7,6 +7,7 @@
 <%@page import="com.notice.model.NoticeService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:useBean id="NoticeSer" class="com.notice.model.NoticeService" scope="page"></jsp:useBean>
+<jsp:useBean id="NoticeVo" class="com.notice.model.NoticeVO" scope="page"></jsp:useBean>
+<jsp:setProperty property="*" name="noticeVo"/>
+
 <%
+
 	//noticeWrite.jsp에서 [등록] 버튼을 누르면 POST 방식으로 이동
 	//한글 인코딩 필요
 	//파일 업로드 
@@ -51,16 +57,17 @@
 		}
 	
 		//1. 요청 파라미터 입력
-		request.setCharacterEncoding("utf-8");
-		String adminNo = request.getParameter("adminNo");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
+		int adminNo = 1;
+		String annTitle = multi.getParameter("annTitle");
+		
+		String annContent = multi.getParameter("annContent");
 		
 		//2. DB작업
 		NoticeService noticeSer = new NoticeService();
 		NoticeVO vo = new NoticeVO();
-		vo.setTitle(title);
-		vo.setAdminNo(Integer.parseInt(adminNo));
+		vo.setAnnTitle(annTitle);
+		vo.setAdminNo(adminNo);
+		vo.setAnnContent(annContent);
 		vo.setFileName(fileName);
 		vo.setFileSize(fileSize);
 		vo.setOriginFileName(originFileName);
