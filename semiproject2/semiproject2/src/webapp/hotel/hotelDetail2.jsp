@@ -1,4 +1,9 @@
 <%@page import="oracle.net.aso.f"%>
+<%@ page import="com.review.model.reviewVO" %>
+<%@page import="java.util.List"%>
+<%@page import="com.hotel.model.hotelVO"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="com.facilities.model.facilitiesVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/Layout/top.jsp" %>
@@ -77,20 +82,29 @@ function nextSlide() {
 setInterval(nextSlide, 3000);
 </script>
 
+<script>
+
+
+</script>
+
 <jsp:useBean id="hotelService" class="com.hotel.model.hotelService" scope="session"></jsp:useBean>
 <jsp:useBean id="hotelVO" class="com.hotel.model.hotelVO" scope="page"></jsp:useBean>
 <jsp:setProperty property="hotelNo" name="hotelVO" />
-<jsp:useBean id="facilitiesService" class = "com.facilities.model.facilitiesService" scope = "session"></jsp:useBean>
-<jsp:useBean id="facilitiesVO" class = "com.facilities.model.facilitiesVO" scope = "page"></jsp:useBean>
-<jsp:setProperty property= "hotelNo" name = "facilitiesVO" />
+<jsp:useBean id="facilitiesService" class="com.facilities.model.facilitiesService" scope="session"></jsp:useBean>
+<jsp:useBean id="facilitiesVO" class="com.facilities.model.facilitiesVO" scope="page"></jsp:useBean>
+<jsp:setProperty property="hotelNo" name="facilitiesVO" />
+<jsp:useBean id="reviewService" class="com.review.model.reviewService" scope="session"></jsp:useBean>
+<jsp:useBean id="reviewVO" class="com.review.model.reviewVO" scope="page"></jsp:useBean>
 
 <%
-	
-  	String hotelNo = request.getParameter("no");
-    hotelVO = hotelService.selectByhotelNo(Integer.parseInt(hotelNo));
-    facilitiesVO = facilitiesService.selectByhotelNo(Integer.parseInt(hotelNo));
-    double latitude = hotelVO.getLatitude();
-    double longitude = hotelVO.getLongitude();
+  String hotelNo = request.getParameter("no");
+  String keyword = request.getParameter("keyword");
+  String condition = request.getParameter("condition");
+  hotelVO = hotelService.selectByhotelNo(Integer.parseInt(hotelNo));
+  facilitiesVO = facilitiesService.selectByhotelNo(Integer.parseInt(hotelNo));
+  double latitude = hotelVO.getLatitude();
+  double longitude = hotelVO.getLongitude();
+  List<reviewVO> reviewList = reviewService.selectByhotelNo(keyword, condition);
 %>
 
 <div class="hotel_detail">
