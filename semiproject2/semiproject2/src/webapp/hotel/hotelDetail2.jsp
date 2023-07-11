@@ -175,11 +175,11 @@ setInterval(nextSlide, 3000);
 			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=77b09882911ce4058ee98aa8532ed409"></script>
 		<script>
 		var container = document.getElementById('map');
-		var hotelLongitude = 1;
-		var hotelLatitude = 1;
+		var hotelLongitude = <%=hotelVO.longitude%>;
+		var hotelLatitude = <%=hotelVO.latitude%>;
 		
 		var options = {
-			center: new kakao.maps.LatLng(<%=hotelVO.longitude%>, <%=hotelVO.latitude %>),
+			center: new kakao.maps.LatLng(hotelLongitude, hotelLatitude),
 			level: 3
 		};
 

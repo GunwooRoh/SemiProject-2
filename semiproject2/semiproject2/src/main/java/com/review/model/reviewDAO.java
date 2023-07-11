@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.db.ConnectionPoolMgr2;
-import com.reservation.model.reservationVO;
 
 
 public class reviewDAO {

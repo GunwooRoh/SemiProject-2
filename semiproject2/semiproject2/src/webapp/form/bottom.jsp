@@ -17,6 +17,7 @@
 	font-style: italic;
 	box-sizing: border-box;
 	border: none;
+	width:1576px;
 }
 
 .row {
@@ -71,7 +72,7 @@
 			<h5>정책 사항</h5>
 			<a href="../footer/cookiePolicy.jsp">쿠키정책</a><br> 
 			<a href="../footer/infomationCheck.jsp">개인정보처리방침</a><br> 
-			<a href="#">서비스 약관</a><br>
+			<a href="../footer/term_of_Service.jsp">서비스 약관</a><br>
 		</div>
 		<div class="col" id="div3">
 			<h5>도움말</h5>
