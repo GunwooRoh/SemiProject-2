@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>    
-<%@ include file="../Layout/bottom.jsp"%>     
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>        
 <script type="text/javascript" src="../jquery/jquery-1.11.3.min.js"></script>
 <title>reservation</title>
 <script type="text/javascript">
+
 </script>
 
 <script type = "text/css">
@@ -27,48 +27,40 @@
   <main>
     <div class="py-5 text-center">
       <img class="d-block mx-auto mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-      <h2>예약</h2>
+      <h2>예약정보</h2>
       <p class="lead">이젠,갈래 예약을 진행합니다</p>
     </div>
 
     <div class="row g-5">
       <div class="col-md-5 col-lg-4 order-md-last">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">Your cart</span>
+          <span class="text-primary">요금내역</span>
           <span class="badge bg-primary rounded-pill">3</span>
         </h4>
         <ul class="list-group mb-3">
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
-              <h6 class="my-0">Product name</h6>
-              <small class="text-muted">Brief description</small>
+              <h6 class="my-0">디럭스룸</h6>
             </div>
-            <span class="text-muted">$12</span>
+            <span class="text-muted">100000원</span>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
-              <h6 class="my-0">Second product</h6>
-              <small class="text-muted">Brief description</small>
+              <h6 class="my-0">총 명</h6>
             </div>
-            <span class="text-muted">$8</span>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
-              <h6 class="my-0">Third item</h6>
-              <small class="text-muted">Brief description</small>
+              <h6 class="my-0">3박</h6>
             </div>
-            <span class="text-muted">$5</span>
           </li>
           <li class="list-group-item d-flex justify-content-between bg-light">
             <div class="text-success">
-              <h6 class="my-0">Promo code</h6>
-              <small>EXAMPLECODE</small>
             </div>
-            <span class="text-success">−$5</span>
           </li>
           <li class="list-group-item d-flex justify-content-between">
-            <span>Total (USD)</span>
-            <strong>$20</strong>
+            <span>Total (\)</span>
+            <strong>300000\</strong>
           </li>
         </ul>
 
@@ -80,41 +72,41 @@
         </form>
       </div>
       <div class="col-md-7 col-lg-8">
-        <h4 class="mb-3">Billing address</h4>
+        <h4 class="mb-3">회원 정보</h4>
         <form class="needs-validation" novalidate>
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="Name" class="form-label">이름</label>
               <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
               <div class="invalid-feedback">
-                Valid name is required.
+                이름을 입력해주세요.
               </div>
             </div>
 
             <div class="col-12">
-              <label for="username" class="form-label">Username</label>
+              <label for="username" class="form-label">아이디</label>
               <div class="input-group has-validation">
                 <span class="input-group-text">@</span>
                 <input type="text" class="form-control" id="username" placeholder="Username" required>
               <div class="invalid-feedback">
-                  Your username is required.
+                  아이디를 입력해주세요.
                 </div>
               </div>
             </div>
 
             <div class="col-12">
-              <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
+              <label for="email" class="form-label">Email <span class="text-muted"></span></label>
               <input type="email" class="form-control" id="email" placeholder="you@example.com">
               <div class="invalid-feedback">
-                Please enter a valid email address for shipping updates.
+                이메일을 입력해주세요.
               </div>
             </div>
 
             <div class="col-12">
-              <label for="address" class="form-label">Address</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+              <label for="tel" class="form-label">전화번호</label>
+              <input type="text" class="form-control" id="tel" placeholder="010-1234-5678" required>
               <div class="invalid-feedback">
-                Please enter your shipping address.
+                전화번호를 입력해주세요.
               </div>
             </div>
 
@@ -124,32 +116,36 @@
             </div>
 
             <div class="col-md-5">
-              <label for="country" class="form-label">Country</label>
+              <label for="country" class="form-label">국가명</label>
               <select class="form-select" id="country" required>
-                <option value="">Choose...</option>
-                <option>United States</option>
+                <option value="">선택해주세요</option>
+                <option>대한민국</option>
               </select>
               <div class="invalid-feedback">
-                Please select a valid country.
+                올바른 국가명을 기입해주세요.
               </div>
             </div>
 
             <div class="col-md-4">
-              <label for="state" class="form-label">State</label>
+              <label for="state" class="form-label">시, 도</label>
               <select class="form-select" id="state" required>
-                <option value="">Choose...</option>
-                <option>California</option>
+                <option value="">선택해주세요</option>
+                <option>서울특별시</option>
+                <option>경기도</option>
+                <option>대전광역시</option>
+                <option>대구광역시</option>
+                <option>부산특별시</option>
               </select>
               <div class="invalid-feedback">
-                Please provide a valid state.
+                올바른 시, 도를 기입해주세요.
               </div>
             </div>
 
             <div class="col-md-3">
-              <label for="zip" class="form-label">Zip</label>
+              <label for="zip" class="form-label">우편번호</label>
               <input type="text" class="form-control" id="zip" placeholder="" required>
               <div class="invalid-feedback">
-                Zip code required.
+               올바른 우편번호를 기입해주세요.
               </div>
             </div>
           </div>
@@ -158,56 +154,56 @@
 
           <div class="form-check">
             <input type="checkbox" class="form-check-input" id="same-address">
-            <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
+            <label class="form-check-label" for="same-address">정보 제공에 동의합니까?</label>
           </div>
 
           <div class="form-check">
             <input type="checkbox" class="form-check-input" id="save-info">
-            <label class="form-check-label" for="save-info">Save this information for next time</label>
+            <label class="form-check-label" for="save-info">다음에도 이 정보를 사용합니다.</label>
           </div>
 
           <hr class="my-4">
 
-          <h4 class="mb-3">Payment</h4>
+          <h4 class="mb-3">결제수단</h4>
 
           <div class="my-3">
             <div class="form-check">
               <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-              <label class="form-check-label" for="credit">Credit card</label>
+              <label class="form-check-label" for="credit">신용카드</label>
             </div>
             <div class="form-check">
               <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-              <label class="form-check-label" for="debit">Debit card</label>
+              <label class="form-check-label" for="debit">토스</label>
             </div>
             <div class="form-check">
               <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
-              <label class="form-check-label" for="paypal">PayPal</label>
+              <label class="form-check-label" for="paypal">카카오페이</label>
             </div>
           </div>
 
           <div class="row gy-3">
             <div class="col-md-6">
-              <label for="cc-name" class="form-label">Name on card</label>
+              <label for="cc-name" class="form-label">소유주 이름</label>
               <input type="text" class="form-control" id="cc-name" placeholder="" required>
-              <small class="text-muted">Full name as displayed on card</small>
+              <small class="text-muted">카드 소유주의 이름을 기입해주세요.</small>
               <div class="invalid-feedback">
-                Name on card is required
+                올바른 카드 소유주의 이름을 기입해주세요.
               </div>
             </div>
 
             <div class="col-md-6">
-              <label for="cc-number" class="form-label">Credit card number</label>
+              <label for="cc-number" class="form-label">카드번호</label>
               <input type="text" class="form-control" id="cc-number" placeholder="" required>
               <div class="invalid-feedback">
-                Credit card number is required
+               올바른 카드번호를 기입해주세요
               </div>
             </div>
 
             <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">Expiration</label>
+              <label for="cc-expiration" class="form-label">유효기간</label>
               <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
               <div class="invalid-feedback">
-                Expiration date required
+                올바른 카드 유효기간을 기입해주세요.
               </div>
             </div>
 
@@ -215,14 +211,14 @@
               <label for="cc-cvv" class="form-label">CVV</label>
               <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
               <div class="invalid-feedback">
-                Security code required
+                올바른 CVV 코드를 기입해주세요.
               </div>
             </div>
           </div>
 
           <hr class="my-4">
 
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+          <button class="w-100 btn btn-primary btn-lg" type="submit">결제완료</button>
         </form>
       </div>
     </div>
@@ -243,8 +239,3 @@
       <script src="form-validation.js"></script>
   
   </body>
-
-
-
-
-<%@ include file="../Layout/bottom.jsp"%> 
