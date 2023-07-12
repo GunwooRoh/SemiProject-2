@@ -1,3 +1,4 @@
+<%@page import="com.notice.model.Utility"%>
 <%@page import="java.io.File"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="java.io.IOException"%>
@@ -24,7 +25,7 @@
 	//noticeWrite.jsp에서 [등록] 버튼을 누르면 POST 방식으로 이동
 	//한글 인코딩 필요
 	//파일 업로드 
-	String upPath = "C:/Users/Desktop/eclipse-workspace/semiJY/src/main/webapp/upload";
+	String upPath = "/upload";
 
 	
 	//업로드할 폴더의 절대 경로 구하기
@@ -34,7 +35,8 @@
 	if (saveDir == null) {
 	    saveDir = upPath;
 	}
-	System.out.println("saveDir="+saveDir);
+	saveDir = "C:\\Users\\Desktop\\eclipse-workspace\\semiJY\\src\\main\\webapp\\upload";
+	System.out.println("test saveDir="+saveDir);
 	
 	
 	int maxSize = 2*1024*1024;
@@ -91,6 +93,11 @@
 		e.printStackTrace();
 	}catch(IOException e){
 		e.printStackTrace();
+		
+		String str = "<script>";
+    	str += "alert('2M 이상의 파일은 업로드할 수 없습니다!');";
+    	str += "history.back();</script>";
+    	out.print(str);
 	}
 	
 	

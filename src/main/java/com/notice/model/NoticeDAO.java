@@ -89,12 +89,13 @@ public class NoticeDAO {
 				String annContent = rs.getString("annContent");
 				Timestamp regdate = rs.getTimestamp("regdate");
 				int adminNo = rs.getInt("adminNo");
+				int readCount= rs.getInt("readCount");
 				String fileName = rs.getString("fileName");
 				String originFileName = rs.getString("originFileName");
 				long fileSize = rs.getLong("fileSize");
-				int readCount= rs.getInt("readCount");
+				int downCount = rs.getInt("downCount");
 				
-				NoticeVO vo = new NoticeVO(annNo, annTitle, annContent, regdate, adminNo, fileName, originFileName, fileSize, readCount);
+				NoticeVO vo = new NoticeVO(annNo, annTitle, annContent, regdate, adminNo, readCount, fileName, originFileName, fileSize, downCount);
 				
 				list.add(vo);
 				System.out.println("조회 완료, list.size = " + list.size() + "매개변수 keyword = " + keyword);
@@ -135,10 +136,11 @@ public class NoticeDAO {
 				String annContent = rs.getString("anncontent");
 				Timestamp regdate = rs.getTimestamp("regdate");
 				int adminno = rs.getInt("adminno");
+				int readCount = rs.getInt("readCount");
 				String fileName = rs.getString("fileName");
 				String originfileName = rs.getString("originfileName");
 				long fileSize = rs.getLong("fileSize");
-				int readCount = rs.getInt("readCount");
+				int downCount = rs.getInt("downCount");
 				
 				vo.setAnnNo(annNo);
 				vo.setAnnTitle(annTitle);
@@ -149,6 +151,7 @@ public class NoticeDAO {
 				vo.setOriginFileName(originfileName);
 				vo.setFileSize(fileSize);
 				vo.setReadCount(readCount);
+				vo.setDownCount(downCount);
 				
 				System.out.println("조회완료, vo = " + vo + ", 조회번호 annNo = " + annNo);
 			}
@@ -244,6 +247,28 @@ public class NoticeDAO {
 			//4
 			int cnt = ps.executeUpdate();
 			System.out.println("다운로드수 증가 결과, cnt="+cnt+", 매개변수 no="+no);
+			
+			return cnt;
+		}finally {
+			pool.dbClose(ps, con);
+		}
+	}
+	
+	public int updateDownCount(int annNo) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		try {
+			//1,2
+			con= pool.getConnection();
+			
+			String sql = "UPDATE ANNOUNCEMENT SET DOWNCOUNT = DOWNCOUNT + 1"
+					    + " WHERE ANNNO = ?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, annNo);
+			
+			int cnt = ps.executeUpdate();
+			System.out.println("다운로드 수 증가 결과, cnt = " + cnt + ", 조회번호 annNo = " + annNo);
 			
 			return cnt;
 		}finally {

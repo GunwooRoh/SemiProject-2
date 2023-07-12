@@ -1,9 +1,10 @@
+<%@page import="com.notice.model.Utility"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="com.notice.model.NoticeVO"%>
 <%@page import="com.notice.model.NoticeService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../form/top.jsp"%>
+<%@ include file="../form/header.jsp"%>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -84,7 +85,7 @@
 %>
 <div id = "detail">
 	<h2>공지사항 상세보기</h2>
-	<input type = "text" value = "<%=vo.getAnnNo() %>"/>
+	<input type = "hidden" name = "annNo" value = "<%=vo.getAnnNo() %>"/>
 	<div class = "firstDiv">
 		<span class = "sp1">제목 | </span><span><%=vo.getAnnTitle() %></span>
 	</div> 
@@ -102,8 +103,9 @@
 		<%if(vo.getFileName()!=null && !vo.getFileName().isEmpty()){ %>
 			<span>
 				<a href = "downCount.jsp?annNo=<%=annNo %>&fileName=<%= fileName%>">
-				
+					<%=Utility.getFileInfo(vo.getOriginFileName(),vo.getFileSize()) %> 
 				</a>
+				다운 : <%=vo.getDownCount() %>
 			</span>
 		<%} %>
 	</div>
@@ -115,7 +117,7 @@
 	</div>
 	<div class = "last">
 		<a href = "noticeEdit.jsp?annNo=<%=annNo %>">[수정]</a>
-		<a href = "noticeDelete.jsp?annNo=<%=annNo %>">[삭제]</a>
+		<a href = "noticeDelete_ok.jsp?annNo=<%=annNo %>">[삭제]</a>
 		<a href = "noticeList.jsp">[목록]</a>
 	</div>
 </div>

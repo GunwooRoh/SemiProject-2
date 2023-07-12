@@ -33,4 +33,8 @@ public class NoticeService {
 	public int updateViewCount(int no) throws SQLException {
 		return noticeDao.updateViewCount(no);
 	}
+	
+	public int updateDownCount(int annNo) throws SQLException {
+		return noticeDao.updateDownCount(annNo);
+	}
 }

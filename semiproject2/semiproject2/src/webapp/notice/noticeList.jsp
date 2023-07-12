@@ -1,3 +1,4 @@
+<%@page import="com.notice.model.Utility"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.notice.model.NoticeVO"%>
 <%@page import="java.util.List"%>
@@ -5,7 +6,7 @@
 <%@page import="com.notice.model.NoticeService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../form/top.jsp"%>
+<%@ include file="../form/header.jsp"%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style type="text/css">
 	* {
@@ -67,6 +68,8 @@ td a {
     text-decoration: none;
     color: black;
 }
+
+
 </style>
 </body>
 <%
@@ -174,7 +177,13 @@ td a {
   			%>
   			<tr>
 	  			<td><%= vo.getAnnNo() %></td>
-	  			<td><a href = "countUpdate.jsp?annNo=<%=vo.getAnnNo()%>"><%=vo.getAnnTitle() %></a></td>
+	  			<td>
+	  				<%=Utility.displayFile(vo.getFileName()) %>
+	  				<a href = "countUpdate.jsp?annNo=<%=vo.getAnnNo()%>">
+  					<%=Utility.cutString(vo.getAnnTitle(), 30) %>
+  					</a>
+  					<%=Utility.displayNew(vo.getRegdate()) %>
+  				</td>
 	  			<td>관리자</td>
 	  			<td><%= sdf.format(vo.getRegdate()) %></td>
 	  			<td><%=vo.getReadCount() %></td>

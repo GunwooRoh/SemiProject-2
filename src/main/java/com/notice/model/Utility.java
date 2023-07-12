@@ -5,7 +5,7 @@ import java.util.Date;
 public class Utility {
 	//자료실 업로드 관련 상수
 	public static final String UP_PATH="/upload";
-	public static final String TEST_PATH="C://Users//Desktop//eclipse-workspace//semiJY//src//main//webapp//upload";
+	public static final String TEST_PATH="C:\\Users\\Desktop\\eclipse-workspace\\semiJY\\src\\main\\webapp\\upload";
 		
 	public static String displayRe(int step) {
 		String result="";
